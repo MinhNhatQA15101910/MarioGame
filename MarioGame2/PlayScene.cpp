@@ -9,6 +9,7 @@
 #include "Portal.h"
 #include "Coin.h"
 #include "Platform.h"
+#include "Tile.h"
 
 #include "SampleKeyEventHandler.h"
 
@@ -135,6 +136,15 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			cell_width, cell_height, length,
 			sprite_begin, sprite_middle, sprite_end
 		);
+
+		break;
+	}
+
+	case OBJECT_TYPE_TILE: 
+	{
+		int sprite_id = atoi(tokens[3].c_str());
+
+		obj = new CTile(x, y, sprite_id);
 
 		break;
 	}

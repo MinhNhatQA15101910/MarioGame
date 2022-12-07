@@ -5,3 +5,7 @@ void CTile::Render() {
 
 	s->Get(this->tileId)->Draw(x, y);
 }
+
+void CTile::GetBoundingBox(float& left, float& top, float& right, float& bottom) {
+
+}
