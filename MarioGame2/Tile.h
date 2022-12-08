@@ -2,6 +2,9 @@
 
 #include "GameObject.h"
 
+#define TILE_WIDTH 16
+#define TILE_HEIGHT 16
+
 class CTile : public CGameObject {
 protected:
 	int length;
