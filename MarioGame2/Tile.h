@@ -2,31 +2,20 @@
 
 #include "GameObject.h"
 
-enum TILE_TYPE { SINGLE = 0, MULTIPLE = 1 };
-
 class CTile : public CGameObject {
 protected:
-	int tileId;
 	int length;
+	float cellWidth, cellHeight;
 	int spriteIdBegin, spriteIdMiddle, spriteIdEnd;
 
 public:
-	CTile() {
-		tileId = 0;
-		length = 0;
-		spriteIdBegin = spriteIdMiddle = spriteIdEnd = 0;
-	}
-
-	CTile(float x, float y, int tileId) : CGameObject(x, y) {
-		this->tileId = tileId;
-		length = 0;
-		spriteIdBegin = spriteIdMiddle = spriteIdEnd = 0;
-	};
-
-	CTile(float x, float y, int length, int spriteIdBegin, int spriteIdMiddle, int spriteIdEnd) {
-		this->tileId = 0;
-		
+	CTile(float x, float y,
+		float cell_width, float cell_height, int length,
+		int spriteIdBegin, int spriteIdMiddle, int spriteIdEnd) : CGameObject(x, y)
+	{
 		this->length = length;
+		this->cellWidth = cell_width;
+		this->cellHeight = cell_height;
 		this->spriteIdBegin = spriteIdBegin;
 		this->spriteIdMiddle = spriteIdMiddle;
 		this->spriteIdEnd = spriteIdEnd;
@@ -35,6 +24,7 @@ public:
 	void Render();
 	void Update(DWORD dt) {};
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+	void RenderBoundingBox();
 };
 typedef CTile* LPTILE;
 
