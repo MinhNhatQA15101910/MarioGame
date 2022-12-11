@@ -45,8 +45,8 @@ class CGame
 
 	LPKEYEVENTHANDLER keyHandler;
 
-	float cam_x = 0.0f;
-	float cam_y = 0.0f;
+	float cam_x = 48.0f;
+	float cam_y = 48.0f;
 
 	HINSTANCE hInstance;
 
