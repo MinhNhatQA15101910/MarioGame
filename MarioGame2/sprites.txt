@@ -1,5 +1,10 @@
 # id	left	top	right	bottom	texture_id
 [SPRITES]
+# coin
+41000	272	305	288	320	21
+42000	288	305	304	320	21
+43000	304	305	320	320	21
+
 # cloud
 51000	81	209	95	223	21
 52000	95	209	111	223	21
@@ -141,3 +146,7 @@
 
 # question box
 281000	48	0	64	16	21
+
+# ani_id	sprite1_id	time1	sprite2_id	time2	...
+[ANIMATIONS]
+40000	41000	150	42000	150	43000	150	42000	150
