@@ -117,12 +117,15 @@ class CMario : public CGameObject
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithCoin(LPCOLLISIONEVENT e);
 	void OnCollisionWithPortal(LPCOLLISIONEVENT e);
+	void OnCollisionWithColorBox(LPCOLLISIONEVENT e);
 
 	int GetAniIdBig();
 	int GetAniIdSmall();
 
 public:
-	CMario(float x, float y) : CGameObject(x, y)
+	CMario() {}
+
+	CMario(float x, float y, int object_type) : CGameObject(x, y, object_type)
 	{
 		isSitting = false;
 		maxVx = 0.0f;

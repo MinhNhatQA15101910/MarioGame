@@ -13,7 +13,7 @@ class CPlayScene : public CScene
 {
 protected:
 	// A play scene has to have player, right? 
-	LPGAMEOBJECT player;
+	CMario* player;
 
 	vector<LPGAMEOBJECT> objects;
 
@@ -32,6 +32,8 @@ public:
 	virtual void Update(DWORD dt);
 	virtual void Render();
 	virtual void Unload();
+
+	virtual void SetPlayerToObjects();
 
 	LPGAMEOBJECT GetPlayer() { return player; }
 

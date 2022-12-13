@@ -14,9 +14,9 @@ protected:
 	int spriteIdBegin, spriteIdMiddle, spriteIdEnd;
 
 public:
-	CPlatform(float x, float y,
+	CPlatform(float x, float y, int object_type,
 		float cell_width, float cell_height, int length,
-		int sprite_id_begin, int sprite_id_middle, int sprite_id_end) :CGameObject(x, y)
+		int sprite_id_begin, int sprite_id_middle, int sprite_id_end) :CGameObject(x, y, object_type)
 	{
 		this->length = length;
 		this->cellWidth = cell_width;

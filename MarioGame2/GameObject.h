@@ -21,6 +21,8 @@ protected:
 	float x;
 	float y;
 
+	int objectType;
+
 	float vx;
 	float vy;
 
@@ -43,9 +45,9 @@ public:
 	void RenderBoundingBox();
 
 	CGameObject();
-	CGameObject(float x, float y) :CGameObject() { this->x = x; this->y = y; }
+	CGameObject(float x, float y, int object_type) :CGameObject() { this->x = x; this->y = y; this->objectType = object_type; }
 
-
+	virtual int GetObjectType() { return this->objectType; }
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom) = 0;
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL) {};
 	virtual void Render() = 0;

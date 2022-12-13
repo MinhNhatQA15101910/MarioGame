@@ -12,9 +12,9 @@ protected:
 	int spriteIdBegin, spriteIdMiddle, spriteIdEnd;
 
 public:
-	CTile(float x, float y,
+	CTile(float x, float y, int object_type,
 		float cell_width, float cell_height, int length,
-		int spriteIdBegin, int spriteIdMiddle, int spriteIdEnd) : CGameObject(x, y)
+		int spriteIdBegin, int spriteIdMiddle, int spriteIdEnd) : CGameObject(x, y, object_type)
 	{
 		this->length = length;
 		this->cellWidth = cell_width;

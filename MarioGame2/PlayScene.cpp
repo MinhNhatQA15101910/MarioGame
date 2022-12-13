@@ -11,6 +11,7 @@
 #include "Platform.h"
 #include "Tile.h"
 #include "QuestionBrick.h"
+#include "ColorBox.h"
 
 #include "SampleKeyEventHandler.h"
 
@@ -113,15 +114,23 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			DebugOut(L"[ERROR] MARIO object was created before!\n");
 			return;
 		}
-		obj = new CMario(x, y);
+		obj = new CMario(x, y, OBJECT_TYPE_MARIO);
 		player = (CMario*)obj;
 
 		DebugOut(L"[INFO] Player object has been created!\n");
 		break;
-	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x, y); break;
-	case OBJECT_TYPE_BRICK: obj = new CBrick(x, y); break;
-	case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
-	case OBJECT_TYPE_QUESTION_BRICK: obj = new CQuestionBrick(x, y); break;
+	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x, y, OBJECT_TYPE_GOOMBA); break;
+	case OBJECT_TYPE_BRICK: obj = new CBrick(x, y, OBJECT_TYPE_BRICK); break;
+	case OBJECT_TYPE_COIN: obj = new CCoin(x, y, OBJECT_TYPE_COIN); break;
+	case OBJECT_TYPE_QUESTION_BRICK: obj = new CQuestionBrick(x, y, OBJECT_TYPE_QUESTION_BRICK); break;
+	case OBJECT_TYPE_COLOR_BOX: 
+	{
+		int sprite_id = atoi(tokens[3].c_str());
+
+		obj = new CColorBox(x, y, OBJECT_TYPE_COLOR_BOX, sprite_id);
+
+		break;
+	}
 
 	case OBJECT_TYPE_PLATFORM:
 	{
@@ -134,7 +143,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		int sprite_end = atoi(tokens[8].c_str());
 
 		obj = new CPlatform(
-			x, y,
+			x, y, OBJECT_TYPE_PLATFORM,
 			cell_width, cell_height, length,
 			sprite_begin, sprite_middle, sprite_end
 		);
@@ -152,7 +161,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		int sprite_end = atoi(tokens[8].c_str());
 
 		obj = new CTile(
-			x, y,
+			x, y, OBJECT_TYPE_TILE,
 			cell_width, cell_height, length,
 			sprite_begin, sprite_middle, sprite_end
 		);
@@ -165,7 +174,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		float r = (float)atof(tokens[3].c_str());
 		float b = (float)atof(tokens[4].c_str());
 		int scene_id = atoi(tokens[5].c_str());
-		obj = new CPortal(x, y, r, b, scene_id);
+		obj = new CPortal(OBJECT_TYPE_PORTAL, x, y, r, b, scene_id);
 	}
 	break;
 
@@ -249,6 +258,8 @@ void CPlayScene::Load()
 
 	f.close();
 
+	SetPlayerToObjects();
+
 	DebugOut(L"[INFO] Done loading scene  %s\n", sceneFilePath);
 }
 
@@ -320,6 +331,15 @@ void CPlayScene::Unload()
 	player = NULL;
 
 	DebugOut(L"[INFO] Scene %d unloaded! \n", id);
+}
+
+void CPlayScene::SetPlayerToObjects() {
+	for (LPGAMEOBJECT obj : objects) {
+		if (obj->GetObjectType() == OBJECT_TYPE_COLOR_BOX) {
+			CColorBox* cb = dynamic_cast<CColorBox*>(obj);
+			cb->setPlayer(this->player);
+		}
+	}
 }
 
 bool CPlayScene::IsGameObjectDeleted(const LPGAMEOBJECT& o) { return o == NULL; }

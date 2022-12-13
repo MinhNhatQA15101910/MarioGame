@@ -12,7 +12,7 @@
 
 class CQuestionBrick : public CGameObject {
 public:
-	CQuestionBrick(float x, float y) : CGameObject(x, y) {}
+	CQuestionBrick(float x, float y, int object_type) : CGameObject(x, y, object_type) {}
 	void Render();
 	void Update();
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
