@@ -4,6 +4,8 @@ mario.txt
 cloud.txt
 brick.txt
 sprites.txt
+goomba.txt
+question-brick.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -552,6 +554,11 @@ sprites.txt
 7	1424	-112
 7	1456	128
 
+# GOOMBA
+2	208	120
+2	512	120
+2	816	120
+2	864	120
 
 # MARIO
 0	24	144
