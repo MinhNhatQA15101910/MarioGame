@@ -288,11 +288,19 @@ void CPlayScene::Update(DWORD dt)
 
 	CGame* game = CGame::GetInstance();
 	cx -= game->GetBackBufferWidth() / 2;
-	cy -= game->GetBackBufferHeight() / 2;
 
-	if (cx < 0) cx = 0;
+	if (cx <= 0) cx = 0;
+	else if (cx >= RIGHT_EDGE - SCREEN_WIDTH) cx = RIGHT_EDGE - SCREEN_WIDTH;
 
-	CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
+	// cy -= game->GetBackBufferHeight() / 2;
+
+	if (cy < TOP_EDGE) cy = TOP_EDGE;
+	else if (cy > TOP_EDGE && cy < CAM_Y_MIDDLE) cy -= Y_OFFSET;
+	else cy = CAM_Y_IDLE;
+
+	
+
+	CGame::GetInstance()->SetCamPos(cx, cy /*cy*/);
 
 	PurgeDeletedObjects();
 }

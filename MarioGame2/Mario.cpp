@@ -55,8 +55,6 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithCoin(e);
 	else if (dynamic_cast<CPortal*>(e->obj))
 		OnCollisionWithPortal(e);
-	else if (dynamic_cast<CColorBox*>(e->obj))
-		OnCollisionWithColorBox(e);
 }
 
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
@@ -103,12 +101,6 @@ void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 {
 	CPortal* p = (CPortal*)e->obj;
 	CGame::GetInstance()->InitiateSwitchScene(p->GetSceneId());
-}
-
-void CMario::OnCollisionWithColorBox(LPCOLLISIONEVENT e) {
-	// CColorBox* cb = dynamic_cast<CColorBox*>(e->obj);
-
-	// cb->setPlayer(this);
 }
 
 //

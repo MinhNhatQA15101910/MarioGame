@@ -8,6 +8,18 @@
 #include "Goomba.h"
 //#include "Koopas.h"
 
+#define SCREEN_WIDTH 288
+#define SCREEN_HEIGHT 272
+
+#define LEFT_EDGE 0
+#define RIGHT_EDGE 2800
+#define TOP_EDGE -240
+#define LEFT_PUSH 1
+
+#define CAM_Y_MIDDLE 48
+#define CAM_Y_IDLE 0
+
+#define Y_OFFSET 48
 
 class CPlayScene : public CScene
 {
