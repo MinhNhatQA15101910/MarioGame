@@ -11,6 +11,7 @@
 #include "Platform.h"
 #include "Tile.h"
 #include "QuestionBrick.h"
+#include "Item.h"
 #include "ColorBox.h"
 
 #include "SampleKeyEventHandler.h"
@@ -122,7 +123,16 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x, y, OBJECT_TYPE_GOOMBA); break;
 	case OBJECT_TYPE_BRICK: obj = new CBrick(x, y, OBJECT_TYPE_BRICK); break;
 	case OBJECT_TYPE_COIN: obj = new CCoin(x, y, OBJECT_TYPE_COIN); break;
-	case OBJECT_TYPE_QUESTION_BRICK: obj = new CQuestionBrick(x, y, OBJECT_TYPE_QUESTION_BRICK); break;
+	case OBJECT_TYPE_QUESTION_BRICK: 
+	{
+		int item_type = atoi(tokens[3].c_str());
+
+		obj = new CQuestionBrick(x, y, OBJECT_TYPE_QUESTION_BRICK, item_type);
+
+		obj->SetSubObj(new CItem(x, y, OBJECT_TYPE_ITEM, item_type));
+
+		break; 
+	}
 	case OBJECT_TYPE_COLOR_BOX: 
 	{
 		int sprite_id = atoi(tokens[3].c_str());
@@ -185,10 +195,15 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	}
 
 	// General object setup
-	obj->SetPosition(x, y);
+	if (obj != NULL) {
+		if (obj->GetSubObj() != NULL) {
+			obj->GetSubObj()->SetPosition(x, y);
+			objects.push_back(obj->GetSubObj());
+		}
 
-
-	objects.push_back(obj);
+		obj->SetPosition(x, y);
+		objects.push_back(obj);
+	}
 }
 
 void CPlayScene::LoadAssets(LPCWSTR assetFile)
@@ -292,12 +307,9 @@ void CPlayScene::Update(DWORD dt)
 	if (cx <= 0) cx = 0;
 	else if (cx >= RIGHT_EDGE - SCREEN_WIDTH) cx = RIGHT_EDGE - SCREEN_WIDTH;
 
-	// cy -= game->GetBackBufferHeight() / 2;
-
-	if (cy < TOP_EDGE) cy = TOP_EDGE;
+	if (cy <= TOP_EDGE + Y_OFFSET) cy = TOP_EDGE;
 	else if (cy > TOP_EDGE && cy < CAM_Y_MIDDLE) cy -= Y_OFFSET;
 	else cy = CAM_Y_IDLE;
-
 	
 
 	CGame::GetInstance()->SetCamPos(cx, cy /*cy*/);
@@ -343,6 +355,8 @@ void CPlayScene::Unload()
 
 void CPlayScene::SetPlayerToObjects() {
 	for (LPGAMEOBJECT obj : objects) {
+		if (obj == NULL) continue;
+
 		if (obj->GetObjectType() == OBJECT_TYPE_COLOR_BOX) {
 			CColorBox* cb = dynamic_cast<CColorBox*>(obj);
 			cb->setPlayer(this->player);
