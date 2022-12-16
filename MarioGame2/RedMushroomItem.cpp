@@ -12,8 +12,6 @@ void CRedMushroomItem::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	vy += ay * dt;
 	vx += ax * dt;
 
-	DebugOutTitle(L"%d", state);
-
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
@@ -48,12 +46,12 @@ void CRedMushroomItem::SetState(int state) {
 		ay = 0.0f;
 		break;
 	case RED_MUSHROOM_ITEM_STATE_POP_UP:
-		vy = -POP_UP_SPEED;
+		vy = -RED_MUSHROOM_ITEM_POP_UP_SPEED;
 		break;
 	case RED_MUSHROOM_ITEM_STATE_RUNNING:
 		ax = 0.0f;
 		ay = RED_MUSHROOM_ITEM_GRAVITY;
-		vx = RUN_SPEED;
+		vx = RED_MUSHROOM_ITEM_RUN_SPEED;
 		vy = 0.0f;
 		break;
 	}

@@ -10,10 +10,10 @@
 #define RED_MUSHROOM_ITEM_BBOX_WIDTH 16
 #define RED_MUSHROOM_ITEM_BBOX_HEIGHT 12
 
-#define RED_MUSHROOM_ITEM_GRAVITY 0.00095f
+#define RED_MUSHROOM_ITEM_GRAVITY 0.001f
 
-#define POP_UP_SPEED 0.03f
-#define RUN_SPEED 0.06f
+#define RED_MUSHROOM_ITEM_POP_UP_SPEED 0.03f
+#define RED_MUSHROOM_ITEM_RUN_SPEED 0.06f
 
 #define RED_MUSHROOM_ITEM_STATE_IDLE 20
 #define RED_MUSHROOM_ITEM_STATE_POP_UP 21
@@ -49,7 +49,7 @@ public:
 	void Render();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
-	int IsBlocking() { return 0; }// (state == RED_MUSHROOM_ITEM_STATE_RUNNING); }
+	int IsBlocking() { return 0; }
 	int IsCollidable() { return 1; }
 
 	void OnNoCollision(DWORD dt);

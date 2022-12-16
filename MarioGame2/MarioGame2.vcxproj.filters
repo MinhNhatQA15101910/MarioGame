@@ -13,168 +13,225 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Scenes">
+      <UniqueIdentifier>{1c06d0a4-b406-482a-b0c7-914c4460aee0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Objects">
+      <UniqueIdentifier>{f691bdf9-90e9-4a78-8072-2ca1338050e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Objects\Enemies">
+      <UniqueIdentifier>{123212d5-5416-4e9f-97c2-8df607106516}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Objects\Question Brick">
+      <UniqueIdentifier>{a895d3b6-4fb9-407a-aa57-69343c32e5f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Objects\Items">
+      <UniqueIdentifier>{639d970d-d619-4c25-9164-4a3554d3b5e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Objects\Tile">
+      <UniqueIdentifier>{c083e7ea-4fb2-49e0-9ad4-0cc3f76ade0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Objects\Mario">
+      <UniqueIdentifier>{0162cbb6-4d73-44f9-a7bc-9f29f6864c45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Objects\Coin">
+      <UniqueIdentifier>{9b435925-97f2-482c-98a7-295c0d4fbd1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Objects\Brick">
+      <UniqueIdentifier>{f0bfe06a-7787-41bc-b5e3-69c70c10e288}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Objects\Portal">
+      <UniqueIdentifier>{2865ca57-8cfb-4f79-88a0-1e882d356350}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Objects\Platform">
+      <UniqueIdentifier>{8f1b8f2a-6ce0-4f7e-a380-344fd382499d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Keyboard Handler">
+      <UniqueIdentifier>{93bf1e05-17cf-4264-b4e3-34467766f6a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Objects\Color Box">
+      <UniqueIdentifier>{45ba9260-2032-43c7-a8ea-2f3d10f14197}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite Handler">
+      <UniqueIdentifier>{ef8a11d3-a32b-42ee-8dde-4f3fc39d50c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Engine">
+      <UniqueIdentifier>{8091fa95-04da-408b-81e8-1dd06b908f7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{1403b5c2-89b7-4847-a16f-8029065134d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Others">
+      <UniqueIdentifier>{a40d2b72-dacf-41cf-ab35-2545509da454}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Animation.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Animations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Brick.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Coin.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Collision.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="debug.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Goomba.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Mario.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Platform.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="PlayScene.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="Portal.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Goomba.cpp">
+      <Filter>Game Objects\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="SampleKeyEventHandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Sprite.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Sprites.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Textures.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Utils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Tile.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Game Objects</Filter>
     </ClCompile>
     <ClCompile Include="QuestionBrick.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ColorBox.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Game Objects\Question Brick</Filter>
     </ClCompile>
     <ClCompile Include="CoinItem.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Game Objects\Items</Filter>
     </ClCompile>
     <ClCompile Include="RedMushroomItem.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Game Objects\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>Game Objects\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="Mario.cpp">
+      <Filter>Game Objects\Mario</Filter>
+    </ClCompile>
+    <ClCompile Include="Coin.cpp">
+      <Filter>Game Objects\Coin</Filter>
+    </ClCompile>
+    <ClCompile Include="Brick.cpp">
+      <Filter>Game Objects\Brick</Filter>
+    </ClCompile>
+    <ClCompile Include="Portal.cpp">
+      <Filter>Game Objects\Portal</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform.cpp">
+      <Filter>Game Objects\Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="SampleKeyEventHandler.cpp">
+      <Filter>Keyboard Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="ColorBox.cpp">
+      <Filter>Game Objects\Color Box</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Sprite Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="Animations.cpp">
+      <Filter>Sprite Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprites.cpp">
+      <Filter>Sprite Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Sprite Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="Textures.cpp">
+      <Filter>Sprite Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Game Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Others</Filter>
+    </ClCompile>
+    <ClCompile Include="debug.cpp">
+      <Filter>Others</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp">
+      <Filter>Others</Filter>
+    </ClCompile>
+    <ClCompile Include="GreenMushroomItem.cpp">
+      <Filter>Game Objects\Items</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Animation.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AnimationFrame.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Animations.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AssetIDs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Brick.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Coin.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Collision.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="debug.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Goomba.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="KeyEventHandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Mario.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Platform.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Scene.h">
+      <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="PlayScene.h">
-      <Filter>Header Files</Filter>
+      <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="Portal.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Goomba.h">
+      <Filter>Game Objects\Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="SampleKeyEventHandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprite.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprites.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Textures.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Tile.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="GameObject.h">
+      <Filter>Game Objects</Filter>
     </ClInclude>
     <ClInclude Include="QuestionBrick.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ColorBox.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CoinItem.h">
-      <Filter>Header Files</Filter>
+      <Filter>Game Objects\Question Brick</Filter>
     </ClInclude>
     <ClInclude Include="RedMushroomItem.h">
-      <Filter>Header Files</Filter>
+      <Filter>Game Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="CoinItem.h">
+      <Filter>Game Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>Game Objects\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="Mario.h">
+      <Filter>Game Objects\Mario</Filter>
+    </ClInclude>
+    <ClInclude Include="Coin.h">
+      <Filter>Game Objects\Coin</Filter>
+    </ClInclude>
+    <ClInclude Include="Brick.h">
+      <Filter>Game Objects\Brick</Filter>
+    </ClInclude>
+    <ClInclude Include="Portal.h">
+      <Filter>Game Objects\Portal</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform.h">
+      <Filter>Game Objects\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyEventHandler.h">
+      <Filter>Keyboard Handler</Filter>
+    </ClInclude>
+    <ClInclude Include="SampleKeyEventHandler.h">
+      <Filter>Keyboard Handler</Filter>
+    </ClInclude>
+    <ClInclude Include="ColorBox.h">
+      <Filter>Game Objects\Color Box</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Sprite Handler</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationFrame.h">
+      <Filter>Sprite Handler</Filter>
+    </ClInclude>
+    <ClInclude Include="Animations.h">
+      <Filter>Sprite Handler</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Sprite Handler</Filter>
+    </ClInclude>
+    <ClInclude Include="Textures.h">
+      <Filter>Sprite Handler</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprites.h">
+      <Filter>Sprite Handler</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Sprite Handler</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Game Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetIDs.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Others</Filter>
+    </ClInclude>
+    <ClInclude Include="debug.h">
+      <Filter>Others</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Others</Filter>
+    </ClInclude>
+    <ClInclude Include="GreenMushroomItem.h">
+      <Filter>Game Objects\Items</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

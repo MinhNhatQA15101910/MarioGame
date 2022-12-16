@@ -142,9 +142,11 @@
 272000	322	99	329	114	20
 273000	341	99	346	114	20
 
-# item mushroom
+# item red mushroom
 291000	160	112	175	127	21
 
+# item green mushroom
+301000	128	128	143	143	21
 
 # ani_id	sprite1_id	time1	sprite2_id	time2	...
 [ANIMATIONS]
@@ -154,5 +156,8 @@
 # item coin
 270000	271000	150	272000	150	273000	150	272000	150
 
-# item mhsuroom
+# item red mushroom
 290000	291000	100
+
+# item green mushroom
+300000	301000	100

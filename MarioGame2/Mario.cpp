@@ -8,6 +8,7 @@
 #include "Coin.h"
 #include "Portal.h"
 #include "RedMushroomItem.h"
+#include "GreenMushroomItem.h"
 #include "QuestionBrick.h"
 
 #include "Collision.h"
@@ -63,6 +64,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithQuestionBrick(e);
 	else if (dynamic_cast<CRedMushroomItem*>(e->obj))
 		OnCollisionWithRedMushroomItem(e);
+	else if (dynamic_cast<CGreenMushroomItem*>(e->obj))
+		OnCollisionWithGreenMushroomItem(e);
 }
 
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
@@ -124,6 +127,9 @@ void CMario::OnCollisionWithQuestionBrick(LPCOLLISIONEVENT e) {
 			else if (dynamic_cast<CRedMushroomItem*>(qb->GetSubObj())) {
 				qb->GetSubObj()->SetState(RED_MUSHROOM_ITEM_STATE_POP_UP);
 			}
+			else if (dynamic_cast<CGreenMushroomItem*>(qb->GetSubObj())) {
+				qb->GetSubObj()->SetState(GREEN_MUSHROOM_ITEM_STATE_POP_UP);
+			}
 		}
 	}
 }
@@ -131,9 +137,19 @@ void CMario::OnCollisionWithQuestionBrick(LPCOLLISIONEVENT e) {
 void CMario::OnCollisionWithRedMushroomItem(LPCOLLISIONEVENT e) {
 	CRedMushroomItem* rmi = dynamic_cast<CRedMushroomItem*>(e->obj);
 
-	if (rmi->GetState() == RED_MUSHROOM_ITEM_STATE_RUNNING) {
+	if (rmi->GetState() == RED_MUSHROOM_ITEM_STATE_RUNNING) 
+	{
 		e->obj->Delete();
 		SetLevel(MARIO_LEVEL_BIG);
+	}
+}
+
+void CMario::OnCollisionWithGreenMushroomItem(LPCOLLISIONEVENT e) {
+	CGreenMushroomItem* gmi = dynamic_cast<CGreenMushroomItem*>(e->obj);
+
+	if (gmi->GetState() == GREEN_MUSHROOM_ITEM_STATE_RUNNING)
+	{
+		e->obj->Delete();
 	}
 }
 
@@ -276,7 +292,7 @@ void CMario::Render()
 
 	//RenderBoundingBox();
 
-	DebugOutTitle(L"Coins: %d", coin);
+	// DebugOutTitle(L"Coins: %d", coin);
 }
 
 void CMario::SetState(int state)
