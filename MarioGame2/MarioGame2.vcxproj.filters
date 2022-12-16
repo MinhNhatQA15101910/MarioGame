@@ -144,6 +144,9 @@
     <ClCompile Include="GreenMushroomItem.cpp">
       <Filter>Game Objects\Items</Filter>
     </ClCompile>
+    <ClCompile Include="LeafItem.cpp">
+      <Filter>Game Objects\Items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene.h">
@@ -231,6 +234,9 @@
       <Filter>Others</Filter>
     </ClInclude>
     <ClInclude Include="GreenMushroomItem.h">
+      <Filter>Game Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="LeafItem.h">
       <Filter>Game Objects\Items</Filter>
     </ClInclude>
   </ItemGroup>

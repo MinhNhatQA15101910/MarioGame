@@ -9,6 +9,7 @@
 #include "Portal.h"
 #include "RedMushroomItem.h"
 #include "GreenMushroomItem.h"
+#include "LeafItem.h"
 #include "QuestionBrick.h"
 
 #include "Collision.h"
@@ -66,6 +67,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithRedMushroomItem(e);
 	else if (dynamic_cast<CGreenMushroomItem*>(e->obj))
 		OnCollisionWithGreenMushroomItem(e);
+	else if (dynamic_cast<CLeafItem*>(e->obj))
+		OnCollisionWithLeafItem(e);
 }
 
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
@@ -130,6 +133,9 @@ void CMario::OnCollisionWithQuestionBrick(LPCOLLISIONEVENT e) {
 			else if (dynamic_cast<CGreenMushroomItem*>(qb->GetSubObj())) {
 				qb->GetSubObj()->SetState(GREEN_MUSHROOM_ITEM_STATE_POP_UP);
 			}
+			else if (dynamic_cast<CLeafItem*>(qb->GetSubObj())) {
+				qb->GetSubObj()->SetState(LEAF_ITEM_STATE_POP_UP);
+			}
 		}
 	}
 }
@@ -150,6 +156,17 @@ void CMario::OnCollisionWithGreenMushroomItem(LPCOLLISIONEVENT e) {
 	if (gmi->GetState() == GREEN_MUSHROOM_ITEM_STATE_RUNNING)
 	{
 		e->obj->Delete();
+	}
+}
+
+void CMario::OnCollisionWithLeafItem(LPCOLLISIONEVENT e) {
+	CLeafItem* li = dynamic_cast<CLeafItem*>(e->obj);
+
+	if (li->GetState() == LEAF_ITEM_STATE_FALLING_LEFT ||
+		li->GetState() == LEAF_ITEM_STATE_FALLING_RIGHT
+		)
+	{
+		li->Delete();
 	}
 }
 

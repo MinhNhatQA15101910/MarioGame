@@ -148,6 +148,13 @@
 # item green mushroom
 301000	128	128	143	143	21
 
+# item leaf 
+# leaf left
+311000	144	128	159	141	21
+
+# leaf right
+312000	112	96	127	109	21
+
 # ani_id	sprite1_id	time1	sprite2_id	time2	...
 [ANIMATIONS]
 # coin
@@ -161,3 +168,10 @@
 
 # item green mushroom
 300000	301000	100
+
+# item leaf
+# leaf left
+310000	311000	100
+
+# leaf right
+310001	312000	100

@@ -14,6 +14,7 @@
 #include "CoinItem.h"
 #include "RedMushroomItem.h"
 #include "GreenMushroomItem.h"
+#include "LeafItem.h"
 #include "ColorBox.h"
 
 #include "SampleKeyEventHandler.h"
@@ -144,6 +145,10 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			obj->SetSubObj(new CGreenMushroomItem(x, y, OBJECT_TYPE_ITEM, item_type));
 			DebugOut(L"Green Mushroom created!\n");
 			break;
+		case ITEM_TYPE_LEAF:
+			obj->SetSubObj(new CLeafItem(x, y, OBJECT_TYPE_ITEM, item_type));
+			DebugOut(L"Leaf created!\n");
+			break;
 		}
 
 		break; 
@@ -211,15 +216,12 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 	// General object setup
 	if (obj != NULL) {
-
-		obj->SetPosition(x, y);
-		objects.push_back(obj);
 		if (obj->GetSubObj() != NULL) {
 			obj->GetSubObj()->SetPosition(x, y);
 			objects.push_back(obj->GetSubObj());
 		}
-
-		
+		obj->SetPosition(x, y);
+		objects.push_back(obj);
 	}
 }
 

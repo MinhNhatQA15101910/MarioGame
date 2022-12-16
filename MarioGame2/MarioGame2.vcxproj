@@ -155,6 +155,7 @@
     <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="CoinItem.cpp" />
     <ClCompile Include="GreenMushroomItem.cpp" />
+    <ClCompile Include="LeafItem.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mario.cpp" />
     <ClCompile Include="Platform.cpp" />
@@ -185,6 +186,7 @@
     <ClInclude Include="CoinItem.h" />
     <ClInclude Include="GreenMushroomItem.h" />
     <ClInclude Include="KeyEventHandler.h" />
+    <ClInclude Include="LeafItem.h" />
     <ClInclude Include="Mario.h" />
     <ClInclude Include="Platform.h" />
     <ClInclude Include="PlayScene.h" />
