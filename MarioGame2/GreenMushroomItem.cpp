@@ -12,6 +12,9 @@ void CGreenMushroomItem::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	vy += ay * dt;
 	vx += ax * dt;
 
+	if (state == GREEN_MUSHROOM_ITEM_STATE_POP_UP && this->y + GREEN_MUSHROOM_ITEM_HEIGHT <= startY)
+		this->SetState(GREEN_MUSHROOM_ITEM_STATE_RUNNING);
+
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }

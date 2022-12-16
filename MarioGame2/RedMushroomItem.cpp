@@ -12,6 +12,9 @@ void CRedMushroomItem::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	vy += ay * dt;
 	vx += ax * dt;
 
+	if (state == RED_MUSHROOM_ITEM_STATE_POP_UP && this->y + RED_MUSHROOM_ITEM_BBOX_HEIGHT <= startY)
+		this->SetState(RED_MUSHROOM_ITEM_STATE_RUNNING);
+
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
@@ -32,7 +35,6 @@ void CRedMushroomItem::OnCollisionWith(LPCOLLISIONEVENT e) {
 	if (!e->obj->IsBlocking()) return;
 	if (dynamic_cast<CMario*>(e->obj)) return;
 	if (dynamic_cast<CGoomba*>(e->obj)) return;
-	if (dynamic_cast<CQuestionBrick*>(e->obj)) return;
 
 	if (e->ny != 0) vy = 0;
 	else if (e->nx != 0) vx = -vx; 

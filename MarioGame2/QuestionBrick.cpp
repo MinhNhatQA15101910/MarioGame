@@ -9,36 +9,6 @@ void CQuestionBrick::Render() {
 }
 
 void CQuestionBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
-	if (!this->subObj->IsDeleted() && this->subObj != NULL) {
-		if (itemType == ITEM_TYPE_COIN) {
-			CCoinItem* ci = dynamic_cast<CCoinItem*>(this->subObj);
-
-			float itx, ity;
-			ci->GetPosition(itx, ity);
-
-			if (state == QUESTION_BOX_STATE_EMPTY && ity >= this->y - COIN_ITEM_HEIGHT && ci->IsCoinJump())
-				ci->Delete();
-		}
-		else if (itemType == ITEM_TYPE_RED_MUSHROOM) {
-			CRedMushroomItem* rmi = dynamic_cast<CRedMushroomItem*>(this->subObj);
-
-			float itx, ity;
-			rmi->GetPosition(itx, ity);
-
-			if (rmi->GetState() == RED_MUSHROOM_ITEM_STATE_POP_UP && ity + RED_MUSHROOM_ITEM_HEIGHT <= this->y)
-				rmi->SetState(RED_MUSHROOM_ITEM_STATE_RUNNING);
-		}
-		else if (itemType == ITEM_TYPE_GREEN_MUSHROOM) {
-			CGreenMushroomItem* gmi = dynamic_cast<CGreenMushroomItem*>(this->subObj);
-
-			float itx, ity;
-			gmi->GetPosition(itx, ity);
-
-			if (gmi->GetState() == GREEN_MUSHROOM_ITEM_STATE_POP_UP && ity + GREEN_MUSHROOM_ITEM_BBOX_HEIGHT <= this->y)
-				gmi->SetState(GREEN_MUSHROOM_ITEM_STATE_RUNNING);
-		}
-	}
-
 	CGameObject::Update(dt, coObjects);
 }
 

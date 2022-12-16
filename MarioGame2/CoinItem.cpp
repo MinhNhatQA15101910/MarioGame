@@ -10,6 +10,9 @@ void CCoinItem::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
 	if (y < startY - COIN_ITEM_HEIGHT) coinJump = true;
 
+	if (coinJump && this->y + COIN_ITEM_HEIGHT >= startY)
+		this->Delete();
+
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
