@@ -9,7 +9,7 @@ void CQuestionBrick::Render() {
 }
 
 void CQuestionBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
-	if (!this->subObj->IsDeleted()) {
+	if (!this->subObj->IsDeleted() && this->subObj != NULL) {
 		if (dynamic_cast<CCoinItem*>(this->subObj)) {
 			CCoinItem* ci = dynamic_cast<CCoinItem*>(this->subObj);
 
