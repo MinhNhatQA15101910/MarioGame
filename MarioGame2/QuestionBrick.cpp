@@ -6,19 +6,28 @@ void CQuestionBrick::Render() {
 		aniId = ID_ANI_QUESTION_BOX_EMPTY;
 
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
-
-	// this->subObj->Render();
 }
 
 void CQuestionBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	if (!this->subObj->IsDeleted()) {
-		CItem* ci = dynamic_cast<CItem*>(this->subObj);
+		if (dynamic_cast<CCoinItem*>(this->subObj)) {
+			CCoinItem* ci = dynamic_cast<CCoinItem*>(this->subObj);
 
-		float itx, ity;
-		ci->GetPosition(itx, ity);
+			float itx, ity;
+			ci->GetPosition(itx, ity);
 
-		if (state == QUESTION_BOX_STATE_EMPTY && ity >= this->y - ITEM_HEIGHT && ci->IsCoinJump())
-			ci->Delete();
+			if (state == QUESTION_BOX_STATE_EMPTY && ity >= this->y - COIN_ITEM_HEIGHT && ci->IsCoinJump())
+				ci->Delete();
+		}
+		else if (dynamic_cast<CRedMushroomItem*>(this->subObj)) {
+			CRedMushroomItem* rmi = dynamic_cast<CRedMushroomItem*>(this->subObj);
+
+			float itx, ity;
+			rmi->GetPosition(itx, ity);
+
+			if (rmi->GetState() == RED_MUSHROOM_ITEM_STATE_POP_UP && ity + RED_MUSHROOM_ITEM_HEIGHT <= this->y)
+				rmi->SetState(RED_MUSHROOM_ITEM_STATE_RUNNING);
+		}
 	}
 
 	CGameObject::Update(dt, coObjects);

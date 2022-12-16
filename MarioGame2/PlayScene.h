@@ -46,6 +46,7 @@ public:
 	virtual void Unload();
 
 	virtual void SetPlayerToObjects();
+	virtual void SetObjectsToObjects();
 
 	LPGAMEOBJECT GetPlayer() { return player; }
 

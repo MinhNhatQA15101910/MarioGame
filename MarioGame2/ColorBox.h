@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameObject.h"
+#include "RedMushroomItem.h"
 #include "Mario.h"
 
 #define COLOR_BOX_BBOX_WIDTH 16
@@ -9,6 +10,7 @@
 class CColorBox : public CGameObject {
 private:
 	CMario* player;
+	CRedMushroomItem* rmi;
 
 	int objectType;
 
@@ -29,10 +31,10 @@ public:
 		this->objectType = object_type;
 
 		player = new CMario();
+		rmi = new CRedMushroomItem();
 		this->isBlocking = 0;
 	}
 
-	void setPlayer(CMario* mario) {
-		player = mario;
-	}
+	void setPlayer(CMario* mario) { player = mario; }
+	void setRedMushroomItem(CRedMushroomItem* rmi) { this->rmi = rmi; }
 };

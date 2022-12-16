@@ -11,7 +11,8 @@
 #include "Platform.h"
 #include "Tile.h"
 #include "QuestionBrick.h"
-#include "Item.h"
+#include "CoinItem.h"
+#include "RedMushroomItem.h"
 #include "ColorBox.h"
 
 #include "SampleKeyEventHandler.h"
@@ -129,7 +130,16 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 		obj = new CQuestionBrick(x, y, OBJECT_TYPE_QUESTION_BRICK, item_type);
 
-		obj->SetSubObj(new CItem(x, y, OBJECT_TYPE_ITEM, item_type));
+		switch (item_type) {
+		case ITEM_TYPE_COIN:
+			obj->SetSubObj(new CCoinItem(x, y, OBJECT_TYPE_ITEM, item_type));
+			DebugOutTitle(L"Coin created!\n");
+			break;
+		case ITEM_TYPE_RED_MUSHROOM:
+			obj->SetSubObj(new CRedMushroomItem(x, y, OBJECT_TYPE_ITEM, item_type));
+			DebugOut(L"Red Mushroom created!\n");
+			break;
+		}
 
 		break; 
 	}
@@ -274,6 +284,7 @@ void CPlayScene::Load()
 	f.close();
 
 	SetPlayerToObjects();
+	SetObjectsToObjects();
 
 	DebugOut(L"[INFO] Done loading scene  %s\n", sceneFilePath);
 }
@@ -360,6 +371,25 @@ void CPlayScene::SetPlayerToObjects() {
 		if (obj->GetObjectType() == OBJECT_TYPE_COLOR_BOX) {
 			CColorBox* cb = dynamic_cast<CColorBox*>(obj);
 			cb->setPlayer(this->player);
+
+			DebugOut(L"Player has been added to objects\n");
+		}
+	}
+}
+
+void CPlayScene::SetObjectsToObjects() {
+	for (LPGAMEOBJECT obj : objects) {
+		if (obj == NULL) continue;
+
+		if (obj->GetObjectType() == OBJECT_TYPE_COLOR_BOX) {
+			CColorBox* cb = dynamic_cast<CColorBox*>(obj);
+			for (LPGAMEOBJECT obj2 : objects) {
+				if (obj2->GetObjectType() == OBJECT_TYPE_ITEM && dynamic_cast<CRedMushroomItem*>(obj2)) {
+					CRedMushroomItem* rmi = dynamic_cast<CRedMushroomItem*>(obj2);
+					cb->setRedMushroomItem(rmi);
+					DebugOut(L"Red Mushroom has been added to objects\n");
+				}
+			}
 		}
 	}
 }

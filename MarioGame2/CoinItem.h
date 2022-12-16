@@ -4,8 +4,8 @@
 #include "Animation.h"
 #include "Animations.h"
 
-#define ITEM_WIDTH 10
-#define ITEM_HEIGHT 16
+#define COIN_ITEM_WIDTH 10
+#define COIN_ITEM_HEIGHT 16
 #define ITEM_BBOX_WIDTH 10
 #define ITEM_BBOX_HEIGHT 16
 
@@ -13,14 +13,14 @@
 
 #define COIN_JUMP_SPEED_Y 0.5f
 
-#define GRAVITY 0.002f
+#define COIN_ITEM_GRAVITY 0.002f
 
 #define COIN_STATE_IDLE 10
 #define COIN_STATE_JUMP 11
 
 #define ID_ANI_ITEM_COIN 270000
 
-class CItem : public CGameObject {
+class CCoinItem : public CGameObject {
 	float ax;
 	float ay;
 
@@ -31,14 +31,14 @@ class CItem : public CGameObject {
 	bool coinJump;
 
 public:
-	CItem() { 
+	CCoinItem() {
 		itemType = 0; 
 		this->startX = this->startY = 0.0f;
 		ax = 0.0f;
 		ay = 0.0f;
 		this->coinJump = false;
 	}
-	CItem(float x, float y, int object_type, int item_type) : CGameObject(x, y, object_type) { 
+	CCoinItem(float x, float y, int object_type, int item_type) : CGameObject(x, y, object_type) {
 		this->itemType = item_type; 
 		this->startX = x;
 		this->startY = y;

@@ -5,7 +5,11 @@
 #include "Animation.h"
 #include "Animations.h"
 
-#include "Item.h"
+#include "CoinItem.h"
+#include "RedMushroomItem.h"
+
+#define ITEM_TYPE_COIN 1
+#define ITEM_TYPE_RED_MUSHROOM 2
 
 #define QUESTION_BOX_STATE_FULL 1
 #define QUESTION_BOX_STATE_EMPTY 2

@@ -6,6 +6,15 @@
 
 #include "debug.h"
 
+#define MARIO_START_X 8.0f
+#define MARIO_END_X 2740.0f
+
+#define MARIO_SMALL_WIDTH 13
+#define MARIO_SMALL_HEIGHT 15
+
+#define MARIO_BIG_WIDTH 13
+#define MARIO_BIG_HEIGHT 27
+
 #define MARIO_WALKING_SPEED		0.1f
 #define MARIO_RUNNING_SPEED		0.2f
 
@@ -118,6 +127,7 @@ class CMario : public CGameObject
 	void OnCollisionWithCoin(LPCOLLISIONEVENT e);
 	void OnCollisionWithPortal(LPCOLLISIONEVENT e);
 	void OnCollisionWithQuestionBrick(LPCOLLISIONEVENT e);
+	void OnCollisionWithRedMushroomItem(LPCOLLISIONEVENT e);
 
 	int GetAniIdBig();
 	int GetAniIdSmall();
@@ -148,6 +158,7 @@ public:
 	}
 
 	int IsBlocking() { return (state != MARIO_STATE_DIE && untouchable == 0); }
+	int GetHeight() { if (level == MARIO_LEVEL_SMALL) return MARIO_SMALL_HEIGHT; return MARIO_BIG_HEIGHT; }
 
 	void OnNoCollision(DWORD dt);
 	void OnCollisionWith(LPCOLLISIONEVENT e);

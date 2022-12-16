@@ -1,36 +1,36 @@
-#include "Item.h"
+#include "CoinItem.h"
 
-void CItem::Render() {
+void CCoinItem::Render() {
 	CAnimations::GetInstance()->Get(ID_ANI_ITEM_COIN)->Render(x, y);
 }
 
-void CItem::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
+void CCoinItem::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	vx += ax * dt;
 	vy += ay * dt;
 
-	if (y < startY - ITEM_HEIGHT) coinJump = true;
+	if (y < startY - COIN_ITEM_HEIGHT) coinJump = true;
 
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
 
-void CItem::GetBoundingBox(float& l, float& t, float& r, float& b) {
+void CCoinItem::GetBoundingBox(float& l, float& t, float& r, float& b) {
 	l = x - ITEM_BBOX_WIDTH / 2;
 	t = y - ITEM_BBOX_HEIGHT / 2;
 	r = l + ITEM_BBOX_WIDTH;
 	b = t + ITEM_BBOX_HEIGHT;
 }
 
-void CItem::OnNoCollision(DWORD dt) {
+void CCoinItem::OnNoCollision(DWORD dt) {
 	x += vx * dt;
 	y += vy * dt;
 }
 
-void CItem::OnCollisionWith(LPCOLLISIONEVENT e){
+void CCoinItem::OnCollisionWith(LPCOLLISIONEVENT e){
 	
 }
 
-void CItem::SetState(int state) {
+void CCoinItem::SetState(int state) {
 	CGameObject::SetState(state);
 
 	switch (state) {
@@ -40,7 +40,7 @@ void CItem::SetState(int state) {
 		break;
 	case COIN_STATE_JUMP:
 		vy = -COIN_JUMP_SPEED_Y;
-		ay = GRAVITY;
+		ay = COIN_ITEM_GRAVITY;
 		break;
 	}
 }

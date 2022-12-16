@@ -7,6 +7,7 @@
 #include "Goomba.h"
 #include "Coin.h"
 #include "Portal.h"
+#include "RedMushroomItem.h"
 #include "QuestionBrick.h"
 
 #include "Collision.h"
@@ -15,6 +16,9 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	vy += ay * dt;
 	vx += ax * dt;
+
+	if (x <= MARIO_START_X) x = MARIO_START_X;
+	if (x >= MARIO_END_X) x = MARIO_END_X;
 
 	if (abs(vx) > abs(maxVx)) vx = maxVx;
 
@@ -57,6 +61,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithPortal(e);
 	else if (dynamic_cast<CQuestionBrick*>(e->obj))
 		OnCollisionWithQuestionBrick(e);
+	else if (dynamic_cast<CRedMushroomItem*>(e->obj))
+		OnCollisionWithRedMushroomItem(e);
 }
 
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
@@ -110,9 +116,24 @@ void CMario::OnCollisionWithQuestionBrick(LPCOLLISIONEVENT e) {
 
 	if (e->ny > 0) {
 		qb->SetState(QUESTION_BOX_STATE_EMPTY);
-		if (!qb->GetSubObj()->IsDeleted())
-			qb->GetSubObj()->SetState(COIN_STATE_JUMP);
-		coin++;
+		if (!qb->GetSubObj()->IsDeleted()) {
+			if (dynamic_cast<CCoinItem*>(qb->GetSubObj())) {
+				qb->GetSubObj()->SetState(COIN_STATE_JUMP);
+				coin++;
+			}
+			else if (dynamic_cast<CRedMushroomItem*>(qb->GetSubObj())) {
+				qb->GetSubObj()->SetState(RED_MUSHROOM_ITEM_STATE_POP_UP);
+			}
+		}
+	}
+}
+
+void CMario::OnCollisionWithRedMushroomItem(LPCOLLISIONEVENT e) {
+	CRedMushroomItem* rmi = dynamic_cast<CRedMushroomItem*>(e->obj);
+
+	if (rmi->GetState() == RED_MUSHROOM_ITEM_STATE_RUNNING) {
+		e->obj->Delete();
+		SetLevel(MARIO_LEVEL_BIG);
 	}
 }
 
