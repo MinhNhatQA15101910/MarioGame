@@ -16,6 +16,8 @@
 #include "GreenMushroomItem.h"
 #include "LeafItem.h"
 #include "ColorBox.h"
+#include "RedFirePlant.h"
+#include "FireBall.h"
 
 #include "SampleKeyEventHandler.h"
 
@@ -126,6 +128,14 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x, y, OBJECT_TYPE_GOOMBA); break;
 	case OBJECT_TYPE_BRICK: obj = new CBrick(x, y, OBJECT_TYPE_BRICK); break;
 	case OBJECT_TYPE_COIN: obj = new CCoin(x, y, OBJECT_TYPE_COIN); break;
+	case OBJECT_TYPE_RED_FIRE_PLANT: 
+	{
+		obj = new CRedFirePlant(x, y, OBJECT_TYPE_RED_FIRE_PLANT); 
+
+		// obj->SetSubObj(new CFireBall(x, y, OBJECT_TYPE_FIREBALL));
+		
+		break;
+	}
 	case OBJECT_TYPE_QUESTION_BRICK: 
 	{
 		int item_type = atoi(tokens[3].c_str());
@@ -220,6 +230,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			obj->GetSubObj()->SetPosition(x, y);
 			objects.push_back(obj->GetSubObj());
 		}
+
 		obj->SetPosition(x, y);
 		objects.push_back(obj);
 	}
@@ -379,9 +390,15 @@ void CPlayScene::SetPlayerToObjects() {
 
 		if (obj->GetObjectType() == OBJECT_TYPE_COLOR_BOX) {
 			CColorBox* cb = dynamic_cast<CColorBox*>(obj);
-			cb->setPlayer(this->player);
+			cb->SetPlayer(this->player);
 
-			DebugOut(L"Player has been added to objects\n");
+			DebugOut(L"Player has been added to color box\n");
+		}
+		else if (obj->GetObjectType() == OBJECT_TYPE_RED_FIRE_PLANT) {
+			CRedFirePlant* rfp = dynamic_cast<CRedFirePlant*>(obj);
+			rfp->SetPlayer(this->player);
+
+			DebugOut(L"Player has been added to red fire plant\n");
 		}
 	}
 }

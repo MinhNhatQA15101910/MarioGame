@@ -11,6 +11,8 @@
 #include "GreenMushroomItem.h"
 #include "LeafItem.h"
 #include "QuestionBrick.h"
+#include "RedFirePlant.h"
+#include "FireBall.h"
 
 #include "Collision.h"
 
@@ -69,6 +71,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithGreenMushroomItem(e);
 	else if (dynamic_cast<CLeafItem*>(e->obj))
 		OnCollisionWithLeafItem(e);
+	else if (dynamic_cast<CRedFirePlant*>(e->obj))
+		OnCollisionWithRedFirePlant(e);
 }
 
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
@@ -167,6 +171,22 @@ void CMario::OnCollisionWithLeafItem(LPCOLLISIONEVENT e) {
 		)
 	{
 		li->Delete();
+	}
+}
+
+void CMario::OnCollisionWithRedFirePlant(LPCOLLISIONEVENT e) {
+	if (untouchable == 0)
+	{
+		if (level > MARIO_LEVEL_SMALL)
+		{
+			level = MARIO_LEVEL_SMALL;
+			StartUntouchable();
+		}
+		else
+		{
+			DebugOut(L">>> Mario DIE >>> \n");
+			SetState(MARIO_STATE_DIE);
+		}
 	}
 }
 

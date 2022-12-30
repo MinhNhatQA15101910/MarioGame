@@ -35,6 +35,6 @@ public:
 		this->isBlocking = 0;
 	}
 
-	void setPlayer(CMario* mario) { player = mario; }
+	void SetPlayer(CMario* mario) { player = mario; }
 	void setRedMushroomItem(CRedMushroomItem* rmi) { this->rmi = rmi; }
 };

@@ -132,9 +132,6 @@
     <ClCompile Include="Game.cpp">
       <Filter>Game Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Collision.cpp">
-      <Filter>Others</Filter>
-    </ClCompile>
     <ClCompile Include="debug.cpp">
       <Filter>Others</Filter>
     </ClCompile>
@@ -146,6 +143,15 @@
     </ClCompile>
     <ClCompile Include="LeafItem.cpp">
       <Filter>Game Objects\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="RedFirePlant.cpp">
+      <Filter>Game Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Others</Filter>
+    </ClCompile>
+    <ClCompile Include="FireBall.cpp">
+      <Filter>Game Objects\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -238,6 +244,12 @@
     </ClInclude>
     <ClInclude Include="LeafItem.h">
       <Filter>Game Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="RedFirePlant.h">
+      <Filter>Game Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="FireBall.h">
+      <Filter>Game Objects\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

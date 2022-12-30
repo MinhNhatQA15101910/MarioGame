@@ -130,6 +130,7 @@ class CMario : public CGameObject
 	void OnCollisionWithRedMushroomItem(LPCOLLISIONEVENT e);
 	void OnCollisionWithGreenMushroomItem(LPCOLLISIONEVENT e);
 	void OnCollisionWithLeafItem(LPCOLLISIONEVENT e);
+	void OnCollisionWithRedFirePlant(LPCOLLISIONEVENT e);
 
 	int GetAniIdBig();
 	int GetAniIdSmall();
@@ -160,6 +161,11 @@ public:
 	}
 
 	int IsBlocking() { return (state != MARIO_STATE_DIE && untouchable == 0); }
+	int GetWidth() {
+		if (level == MARIO_LEVEL_SMALL) return MARIO_SMALL_WIDTH;
+
+		return MARIO_BIG_WIDTH;
+	}
 	int GetHeight() { if (level == MARIO_LEVEL_SMALL) return MARIO_SMALL_HEIGHT; return MARIO_BIG_HEIGHT; }
 
 	void OnNoCollision(DWORD dt);
@@ -169,4 +175,10 @@ public:
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
 
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+	void GetPositionCenter(float& x, float& y) {
+		x = this->x + GetWidth() / 2;
+		y = this->y + GetHeight() / 2;
+	}
+	int GetUntouchable() { return this->untouchable; }
+	int GetLevel() { return this->level; }
 };
