@@ -153,6 +153,12 @@
     <ClCompile Include="FireBall.cpp">
       <Filter>Game Objects\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="GreenFirePlant.cpp">
+      <Filter>Game Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="GreenPlant.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene.h">
@@ -250,6 +256,12 @@
     </ClInclude>
     <ClInclude Include="FireBall.h">
       <Filter>Game Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="GreenFirePlant.h">
+      <Filter>Game Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="GreenPlant.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

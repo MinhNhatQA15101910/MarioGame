@@ -22,6 +22,8 @@ void CFireBall::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 void CFireBall::Render() {
 	if (state == FIREBALL_STATE_ATTACK)
 		CAnimations::GetInstance()->Get(ID_ANI_FIREBALL_ATTACK)->Render(x, y);
+
+	this->RenderBoundingBox();
 }
 
 void CFireBall::OnNoCollision(DWORD dt) {
@@ -35,17 +37,14 @@ void CFireBall::OnCollisionWith(LPCOLLISIONEVENT e) {
 	}
 
 	if (dynamic_cast<CMario*>(e->obj)) {
-		if (this->player->GetUntouchable() == 0)
-		{
+		if (this->player->GetUntouchable() == 0) {
 			this->SetState(FIREBALL_STATE_IDLE);
 
-			if (player->GetLevel() > MARIO_LEVEL_SMALL)
-			{
+			if (player->GetLevel() > MARIO_LEVEL_SMALL) {
 				player->SetLevel(MARIO_LEVEL_SMALL);
 				player->StartUntouchable();
 			}
-			else
-			{
+			else {
 				DebugOut(L">>> Mario DIE >>> \n");
 				player->SetState(MARIO_STATE_DIE);
 			}

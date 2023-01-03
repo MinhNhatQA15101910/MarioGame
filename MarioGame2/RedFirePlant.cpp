@@ -36,24 +36,24 @@ void CRedFirePlant::Render() {
 	switch (state) {
 	case RED_FIRE_PLANT_STATE_IDLE:
 	case RED_FIRE_PLANT_STATE_ATTACK:
-		if ((py > this->y + SWITCH_ANI_Y) && (px <= this->x + SWITCH_ANI_X))
+		if ((py > this->y + RED_FIRE_PLANT_SWITCH_ANI_Y) && (px <= this->x + RED_FIRE_PLANT_SWITCH_ANI_X))
 			aniId = ID_ANI_RED_FIRE_PLANT_ATTACK_LEFT_DOWN;
-		else if ((py <= this->y + SWITCH_ANI_Y) && (px <= this->x + SWITCH_ANI_X))
+		else if ((py <= this->y + RED_FIRE_PLANT_SWITCH_ANI_Y) && (px <= this->x + RED_FIRE_PLANT_SWITCH_ANI_X))
 			aniId = ID_ANI_RED_FIRE_PLANT_ATTACK_LEFT_UP;
-		else if ((py > this->y + SWITCH_ANI_Y) && (px > this->x + SWITCH_ANI_X))
+		else if ((py > this->y + RED_FIRE_PLANT_SWITCH_ANI_Y) && (px > this->x + RED_FIRE_PLANT_SWITCH_ANI_X))
 			aniId = ID_ANI_RED_FIRE_PLANT_ATTACK_RIGHT_DOWN;
-		else if ((py <= this->y + SWITCH_ANI_Y) && (px > this->x + SWITCH_ANI_X))
+		else if ((py <= this->y + RED_FIRE_PLANT_SWITCH_ANI_Y) && (px > this->x + RED_FIRE_PLANT_SWITCH_ANI_X))
 			aniId = ID_ANI_RED_FIRE_PLANT_ATTACK_RIGHT_UP;
 		break;
 	case RED_FIRE_PLANT_STATE_POP_UP:
 	case RED_FIRE_PLANT_STATE_POP_DOWN:
-		if ((py > this->y + SWITCH_ANI_Y) && (px <= this->x + SWITCH_ANI_X))
+		if ((py > this->y + RED_FIRE_PLANT_SWITCH_ANI_Y) && (px <= this->x + RED_FIRE_PLANT_SWITCH_ANI_X))
 			aniId = ID_ANI_RED_FIRE_PLANT_POP_UP_LEFT_DOWN;
-		else if ((py <= this->y + SWITCH_ANI_Y) && (px <= this->x + SWITCH_ANI_X))
+		else if ((py <= this->y + RED_FIRE_PLANT_SWITCH_ANI_Y) && (px <= this->x + RED_FIRE_PLANT_SWITCH_ANI_X))
 			aniId = ID_ANI_RED_FIRE_PLANT_POP_UP_LEFT_UP;
-		else if ((py > this->y + SWITCH_ANI_Y) && (px > this->x + SWITCH_ANI_X))
+		else if ((py > this->y + RED_FIRE_PLANT_SWITCH_ANI_Y) && (px > this->x + RED_FIRE_PLANT_SWITCH_ANI_X))
 			aniId = ID_ANI_RED_FIRE_PLANT_POP_UP_RIGHT_DOWN;
-		else if ((py <= this->y + SWITCH_ANI_Y) && (px > this->x + SWITCH_ANI_X))
+		else if ((py <= this->y + RED_FIRE_PLANT_SWITCH_ANI_Y) && (px > this->x + RED_FIRE_PLANT_SWITCH_ANI_X))
 			aniId = ID_ANI_RED_FIRE_PLANT_POP_UP_RIGHT_UP;
 		break;
 	}
@@ -61,6 +61,8 @@ void CRedFirePlant::Render() {
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 	
 	this->fireball->Render();
+
+	this->RenderBoundingBox();
 }
 
 void CRedFirePlant::OnNoCollision(DWORD dt) {
@@ -83,7 +85,7 @@ CRedFirePlant::CRedFirePlant() {
 
 CRedFirePlant::CRedFirePlant(float x, float y, int object_type) : CGameObject(x, y, object_type) {
 	this->player = new CMario();
-	this->fireball = new CFireBall(x + FIREBALL_OFFSET_X, y + FIREBALL_OFFSET_Y, OBJECT_TYPE_FIREBALL);
+	this->fireball = new CFireBall(x + RED_FIRE_PLANT_FIREBALL_OFFSET_X, y + RED_FIRE_PLANT_FIREBALL_OFFSET_Y, OBJECT_TYPE_FIREBALL);
 	
 	this->start_x = x;
 	this->start_y = y;
@@ -106,7 +108,7 @@ void CRedFirePlant::SetState(int state) {
 		vy = RED_FIRE_PLANT_POP_UP_SPEED;
 		break;
 	case RED_FIRE_PLANT_STATE_ATTACK:
-		this->fireball->SetPosition(this->start_x + FIREBALL_OFFSET_X, this->start_y + FIREBALL_OFFSET_Y);
+		this->fireball->SetPosition(this->start_x + RED_FIRE_PLANT_FIREBALL_OFFSET_X, this->start_y + RED_FIRE_PLANT_FIREBALL_OFFSET_Y);
 		this->fireball->SetState(FIREBALL_STATE_ATTACK);
 		
 		this->idle_start = GetTickCount64();

@@ -12,6 +12,8 @@
 #include "LeafItem.h"
 #include "QuestionBrick.h"
 #include "RedFirePlant.h"
+#include "GreenFirePlant.h"
+#include "GreenPlant.h"
 #include "FireBall.h"
 
 #include "Collision.h"
@@ -73,6 +75,10 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithLeafItem(e);
 	else if (dynamic_cast<CRedFirePlant*>(e->obj))
 		OnCollisionWithRedFirePlant(e);
+	else if (dynamic_cast<CGreenFirePlant*>(e->obj))
+		OnCollisionWithGreenFirePlant(e);
+	else if (dynamic_cast<CGreenPlant*>(e->obj))
+		OnCollisionWithGreenPlant(e);
 }
 
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
@@ -175,17 +181,55 @@ void CMario::OnCollisionWithLeafItem(LPCOLLISIONEVENT e) {
 }
 
 void CMario::OnCollisionWithRedFirePlant(LPCOLLISIONEVENT e) {
-	if (untouchable == 0)
-	{
-		if (level > MARIO_LEVEL_SMALL)
+	if (e->obj->GetState() != RED_FIRE_PLANT_STATE_IDLE) {
+		if (untouchable == 0)
 		{
-			level = MARIO_LEVEL_SMALL;
-			StartUntouchable();
+			if (level > MARIO_LEVEL_SMALL)
+			{
+				level = MARIO_LEVEL_SMALL;
+				StartUntouchable();
+			}
+			else
+			{
+				DebugOut(L">>> Mario DIE >>> \n");
+				SetState(MARIO_STATE_DIE);
+			}
 		}
-		else
+	}
+}
+
+void CMario::OnCollisionWithGreenFirePlant(LPCOLLISIONEVENT e) {
+	if (e->obj->GetState() != GREEN_FIRE_PLANT_STATE_IDLE) {
+		if (untouchable == 0)
 		{
-			DebugOut(L">>> Mario DIE >>> \n");
-			SetState(MARIO_STATE_DIE);
+			if (level > MARIO_LEVEL_SMALL)
+			{
+				level = MARIO_LEVEL_SMALL;
+				StartUntouchable();
+			}
+			else
+			{
+				DebugOut(L">>> Mario DIE >>> \n");
+				SetState(MARIO_STATE_DIE);
+			}
+		}
+	}
+}
+
+void CMario::OnCollisionWithGreenPlant(LPCOLLISIONEVENT e) {
+	if (e->obj->GetState() != GREEN_PLANT_STATE_IDLE_BOTTOM) {
+		if (untouchable == 0)
+		{
+			if (level > MARIO_LEVEL_SMALL)
+			{
+				level = MARIO_LEVEL_SMALL;
+				StartUntouchable();
+			}
+			else
+			{
+				DebugOut(L">>> Mario DIE >>> \n");
+				SetState(MARIO_STATE_DIE);
+			}
 		}
 	}
 }
@@ -327,9 +371,7 @@ void CMario::Render()
 
 	animations->Get(aniId)->Render(x, y);
 
-	//RenderBoundingBox();
-
-	// DebugOutTitle(L"Coins: %d", coin);
+	RenderBoundingBox();
 }
 
 void CMario::SetState(int state)

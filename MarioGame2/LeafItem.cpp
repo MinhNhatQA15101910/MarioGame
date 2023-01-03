@@ -10,6 +10,8 @@ void CLeafItem::Render() {
 		ani = ID_ANI_LEAF_ITEM_RIGHT;
 
 	CAnimations::GetInstance()->Get(ani)->Render(x, y);
+
+	this->RenderBoundingBox();
 }
 
 void CLeafItem::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {

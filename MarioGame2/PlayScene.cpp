@@ -17,6 +17,8 @@
 #include "LeafItem.h"
 #include "ColorBox.h"
 #include "RedFirePlant.h"
+#include "GreenFirePlant.h"
+#include "GreenPlant.h"
 #include "FireBall.h"
 
 #include "SampleKeyEventHandler.h"
@@ -128,15 +130,10 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x, y, OBJECT_TYPE_GOOMBA); break;
 	case OBJECT_TYPE_BRICK: obj = new CBrick(x, y, OBJECT_TYPE_BRICK); break;
 	case OBJECT_TYPE_COIN: obj = new CCoin(x, y, OBJECT_TYPE_COIN); break;
-	case OBJECT_TYPE_RED_FIRE_PLANT: 
-	{
-		obj = new CRedFirePlant(x, y, OBJECT_TYPE_RED_FIRE_PLANT); 
-
-		// obj->SetSubObj(new CFireBall(x, y, OBJECT_TYPE_FIREBALL));
-		
-		break;
-	}
-	case OBJECT_TYPE_QUESTION_BRICK: 
+	case OBJECT_TYPE_RED_FIRE_PLANT: obj = new CRedFirePlant(x, y, OBJECT_TYPE_RED_FIRE_PLANT); break;
+	case OBJECT_TYPE_GREEN_FIRE_PLANT: obj = new CGreenFirePlant(x, y, OBJECT_TYPE_GREEN_FIRE_PLANT); break;
+	case OBJECT_TYPE_GREEN_PLANT: obj = new CGreenPlant(x, y, OBJECT_TYPE_GREEN_PLANT); break;
+	case OBJECT_TYPE_QUESTION_BRICK:
 	{
 		int item_type = atoi(tokens[3].c_str());
 
@@ -399,6 +396,12 @@ void CPlayScene::SetPlayerToObjects() {
 			rfp->SetPlayer(this->player);
 
 			DebugOut(L"Player has been added to red fire plant\n");
+		}
+		else if (obj->GetObjectType() == OBJECT_TYPE_GREEN_FIRE_PLANT) {
+			CGreenFirePlant* gfp = dynamic_cast<CGreenFirePlant*>(obj);
+			gfp->SetPlayer(this->player);
+
+			DebugOut(L"Player has been added to green fire plant\n");
 		}
 	}
 }
