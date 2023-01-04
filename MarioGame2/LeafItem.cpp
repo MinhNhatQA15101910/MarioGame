@@ -6,14 +6,14 @@
 #include "Mario.h"
 
 void CLeafItem::Render() {
+	this->score->Render();
+
 	int ani = ID_ANI_LEAF_ITEM_LEFT;
 	if (state == LEAF_ITEM_STATE_FALLING_RIGHT)
 		ani = ID_ANI_LEAF_ITEM_RIGHT;
 
 	if (this->state != LEAF_ITEM_STATE_DISAPPEAR)
 		CAnimations::GetInstance()->Get(ani)->Render(x, y);
-
-	this->score->Render();
 }
 
 void CLeafItem::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {

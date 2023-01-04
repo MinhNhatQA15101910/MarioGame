@@ -5,10 +5,10 @@
 #include "Goomba.h"
 
 void CGreenMushroomItem::Render() {
+	this->score->Render();
+
 	if (this->state != GREEN_MUSHROOM_ITEM_STATE_DISAPPEAR)
 		CAnimations::GetInstance()->Get(ID_ANI_ITEM_GREEN_MUSHROOM)->Render(x, y);
-
-	this->score->Render();
 }
 
 void CGreenMushroomItem::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {

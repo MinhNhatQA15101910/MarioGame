@@ -17,7 +17,7 @@ CScore::CScore(float x, float y, int object_type, int score) : CGameObject(x, y,
 }
 
 void CScore::Render() {
-	if (this->state != SCORE_STATE_DISAPPEAR) {
+	if (this->state == SCORE_STATE_POP_UP) {
 		switch (this->score) {
 		case 100:
 			CSprites::GetInstance()->Get(ID_SPRITE_SCORE_100)->Draw(x, y);

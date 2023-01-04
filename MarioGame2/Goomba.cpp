@@ -74,6 +74,8 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CGoomba::Render()
 {
+	this->score->Render();
+
 	int aniId = ID_ANI_GOOMBA_WALKING;
 	if (state == GOOMBA_STATE_DIE)
 	{
@@ -82,8 +84,6 @@ void CGoomba::Render()
 
 	if (this->state != GOOMBA_STATE_DISAPPEAR)
 		CAnimations::GetInstance()->Get(aniId)->Render(x, y);
-
-	this->score->Render();
 }
 
 void CGoomba::SetState(int state)

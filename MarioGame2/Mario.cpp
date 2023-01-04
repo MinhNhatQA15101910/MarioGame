@@ -84,9 +84,9 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 	// jump on top >> kill Goomba and deflect a bit 
 	if (e->ny < 0)
 	{
-		if (goomba->GetState() != GOOMBA_STATE_DISAPPEAR)
+		if (goomba->GetState() != GOOMBA_STATE_DIE)
 		{
-			goomba->SetState(GOOMBA_STATE_DISAPPEAR);
+			goomba->SetState(GOOMBA_STATE_DIE);
 
 			float goombaX, goombaY;
 			goomba->GetPosition(goombaX, goombaY);

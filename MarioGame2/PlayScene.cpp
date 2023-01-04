@@ -224,15 +224,13 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 	// General object setup
 	if (obj != NULL) {
-		obj->SetPosition(x, y);
-		objects.push_back(obj);
-
 		if (obj->GetSubObj() != NULL) {
 			obj->GetSubObj()->SetPosition(x, y);
 			objects.push_back(obj->GetSubObj());
 		}
 
-		
+		obj->SetPosition(x, y);
+		objects.push_back(obj);
 	}
 }
 
