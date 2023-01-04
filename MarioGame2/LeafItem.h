@@ -3,6 +3,8 @@
 #include "GameObject.h"
 #include "Animation.h"
 #include "Animations.h"
+#include "Score.h"
+#include "AssetIDs.h"
 
 #define LEAF_ITEM_WIDTH 16
 #define LEAF_ITEM_HEIGHT 14
@@ -24,13 +26,19 @@
 #define LEAF_ITEM_STATE_POP_UP 41
 #define LEAF_ITEM_STATE_FALLING_LEFT 42
 #define LEAF_ITEM_STATE_FALLING_RIGHT 43
+#define LEAF_ITEM_STATE_DISAPPEAR 44
 
 #define ID_ANI_LEAF_ITEM_LEFT 310000
 #define ID_ANI_LEAF_ITEM_RIGHT 310001
 
 class CLeafItem : public CGameObject {
+	CScore* score;
+	
 	float ax;
 	float ay;
+
+	float start_x;
+	float start_y;
 
 	int itemType;
 
@@ -40,16 +48,23 @@ class CLeafItem : public CGameObject {
 
 public:
 	CLeafItem() {
+		this->score = new CScore();
+
 		this->itemType = 0;
 		this->ax = this->ay = 0.0f;
 		this->left_edge = this->right_edge = 0.0f;
+		this->start_x = this->start_y = 0.0f;
 		this->top_edge = 0.0f;
 	}
 
 	CLeafItem(float x, float y, int object_type, int item_type) : CGameObject(x, y, object_type) {
+		this->score = new CScore(x, y, OBJECT_TYPE_SCORE, 1000);
+		
 		this->itemType = item_type;
 		this->ax = 0.0f;
 		this->ay = 0.0f;
+		this->start_x = x;
+		this->start_y = y;
 		this->left_edge = this->x;
 		this->right_edge = this->x + LEAF_MOVEMENT_LENGTH;
 		this->top_edge = this->y - TOP_LENGTH;
@@ -59,6 +74,7 @@ public:
 	void Render();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
+	CScore* GetScore() { return this->score; }
 	int IsBlocking() { return 0; }
 	int IsCollidable() { return 0; }
 

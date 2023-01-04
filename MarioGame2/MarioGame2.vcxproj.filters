@@ -58,11 +58,11 @@
     <Filter Include="Game Engine">
       <UniqueIdentifier>{8091fa95-04da-408b-81e8-1dd06b908f7c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource">
-      <UniqueIdentifier>{1403b5c2-89b7-4847-a16f-8029065134d4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Others">
       <UniqueIdentifier>{a40d2b72-dacf-41cf-ab35-2545509da454}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Objects\Score">
+      <UniqueIdentifier>{17d93a5a-4f51-4cea-8b2e-2dcf05290b9d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -157,7 +157,13 @@
       <Filter>Game Objects\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="GreenPlant.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Game Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Font.cpp">
+      <Filter>Sprite Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="Score.cpp">
+      <Filter>Game Objects\Score</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -233,9 +239,6 @@
     <ClInclude Include="Game.h">
       <Filter>Game Engine</Filter>
     </ClInclude>
-    <ClInclude Include="AssetIDs.h">
-      <Filter>Resource</Filter>
-    </ClInclude>
     <ClInclude Include="Collision.h">
       <Filter>Others</Filter>
     </ClInclude>
@@ -260,8 +263,17 @@
     <ClInclude Include="GreenFirePlant.h">
       <Filter>Game Objects\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="AssetIDs.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
     <ClInclude Include="GreenPlant.h">
-      <Filter>Header Files</Filter>
+      <Filter>Game Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>Sprite Handler</Filter>
+    </ClInclude>
+    <ClInclude Include="Score.h">
+      <Filter>Game Objects\Score</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

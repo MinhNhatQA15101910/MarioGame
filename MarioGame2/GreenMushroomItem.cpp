@@ -5,15 +5,31 @@
 #include "Goomba.h"
 
 void CGreenMushroomItem::Render() {
-	CAnimations::GetInstance()->Get(ID_ANI_ITEM_GREEN_MUSHROOM)->Render(x, y);
+	if (this->state != GREEN_MUSHROOM_ITEM_STATE_DISAPPEAR)
+		CAnimations::GetInstance()->Get(ID_ANI_ITEM_GREEN_MUSHROOM)->Render(x, y);
+
+	this->score->Render();
 }
 
 void CGreenMushroomItem::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	vy += ay * dt;
 	vx += ax * dt;
 
-	if (state == GREEN_MUSHROOM_ITEM_STATE_POP_UP && this->y + GREEN_MUSHROOM_ITEM_HEIGHT <= startY)
+	if (this->score->GetState() == SCORE_STATE_IDLE)
+		this->score->SetPosition(this->x, this->y);
+
+	if (this->state == GREEN_MUSHROOM_ITEM_STATE_POP_UP && this->y + GREEN_MUSHROOM_ITEM_HEIGHT <= startY)
 		this->SetState(GREEN_MUSHROOM_ITEM_STATE_RUNNING);
+
+	if (this->state == GREEN_MUSHROOM_ITEM_STATE_DISAPPEAR)
+		this->SetPosition(this->startX, this->startY);
+
+	if (this->state == GREEN_MUSHROOM_ITEM_STATE_DISAPPEAR && this->score->GetState() == SCORE_STATE_DISAPPEAR) {
+		this->Delete();
+		return;
+	}
+
+	this->score->Update(dt, coObjects);
 
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
@@ -33,9 +49,17 @@ void CGreenMushroomItem::OnNoCollision(DWORD dt) {
 
 void CGreenMushroomItem::OnCollisionWith(LPCOLLISIONEVENT e) {
 	if (!e->obj->IsBlocking()) return;
-	if (dynamic_cast<CMario*>(e->obj)) return;
 	if (dynamic_cast<CGoomba*>(e->obj)) return;
-	if (dynamic_cast<CQuestionBrick*>(e->obj) && state != GREEN_MUSHROOM_ITEM_STATE_RUNNING) return;
+	if (dynamic_cast<CMario*>(e->obj)) {
+		CMario* mario = dynamic_cast<CMario*>(e->obj);
+
+		if (this->state == GREEN_MUSHROOM_ITEM_STATE_RUNNING) {
+			this->SetState(GREEN_MUSHROOM_ITEM_STATE_DISAPPEAR);
+			this->score->SetStartX(this->x);
+			this->score->SetStartY(this->y);
+			this->score->SetState(SCORE_STATE_POP_UP);
+		}
+	}
 
 	if (e->ny != 0) vy = 0;
 	else if (e->nx != 0) vx = -vx;
@@ -47,6 +71,7 @@ void CGreenMushroomItem::SetState(int state) {
 	CGameObject::SetState(state);
 	switch (state) {
 	case GREEN_MUSHROOM_ITEM_STATE_IDLE:
+	case GREEN_MUSHROOM_ITEM_STATE_DISAPPEAR:
 		ax = 0.0f;
 		ay = 0.0f;
 		break;

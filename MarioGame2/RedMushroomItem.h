@@ -3,6 +3,8 @@
 #include "GameObject.h"
 #include "Animation.h"
 #include "Animations.h"
+#include "Score.h"
+#include "AssetIDs.h"
 
 #define RED_MUSHROOM_ITEM_WITDH 16
 #define RED_MUSHROOM_ITEM_HEIGHT 16
@@ -18,10 +20,13 @@
 #define RED_MUSHROOM_ITEM_STATE_IDLE 20
 #define RED_MUSHROOM_ITEM_STATE_POP_UP 21
 #define RED_MUSHROOM_ITEM_STATE_RUNNING 22
+#define RED_MUSHROOM_ITEM_STATE_DISAPPEAR 23
 
 #define ID_ANI_ITEM_RED_MUSHROOM 290000
 
 class CRedMushroomItem : public CGameObject {
+	CScore* score;
+	
 	float ax;
 	float ay;
 
@@ -31,6 +36,8 @@ class CRedMushroomItem : public CGameObject {
 
 public:
 	CRedMushroomItem() {
+		this->score = new CScore();
+
 		itemType = 0;
 		this->startX = this->startY = 0.0f;
 		ax = 0.0f;
@@ -38,6 +45,8 @@ public:
 	}
 
 	CRedMushroomItem(float x, float y, int object_type, int item_type) : CGameObject(x, y, object_type) {
+		this->score = new CScore(x, y, OBJECT_TYPE_SCORE, 1000);
+		
 		this->itemType = item_type;
 		this->startX = x;
 		this->startY = y;
@@ -49,6 +58,7 @@ public:
 	void Render();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
+	CScore* GetScore() { return this->score; }
 	int IsBlocking() { return 0; }
 	int IsCollidable() { return 1; }
 

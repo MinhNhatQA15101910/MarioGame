@@ -1,7 +1,10 @@
 #include "CoinItem.h"
 
 void CCoinItem::Render() {
-	CAnimations::GetInstance()->Get(ID_ANI_ITEM_COIN)->Render(x, y);
+	if (this->state != COIN_STATE_DISAPPEAR)
+		CAnimations::GetInstance()->Get(ID_ANI_ITEM_COIN)->Render(x, y);
+
+	score->Render();
 }
 
 void CCoinItem::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
@@ -10,8 +13,12 @@ void CCoinItem::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
 	if (y < startY - COIN_ITEM_HEIGHT) coinJump = true;
 
-	if (coinJump && this->y + COIN_ITEM_HEIGHT >= startY)
-		this->Delete();
+	if (coinJump && this->y + COIN_ITEM_HEIGHT >= startY) {
+		this->SetState(COIN_STATE_DISAPPEAR);
+		this->score->SetState(SCORE_STATE_POP_UP);
+	}
+
+	this->score->Update(dt, coObjects);
 
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
@@ -38,6 +45,7 @@ void CCoinItem::SetState(int state) {
 
 	switch (state) {
 	case COIN_STATE_IDLE:
+	case COIN_STATE_DISAPPEAR:
 		ax = 0.0f;
 		ay = 0.0f;
 		break;

@@ -61,8 +61,6 @@ void CRedFirePlant::Render() {
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 	
 	this->fireball->Render();
-
-	this->RenderBoundingBox();
 }
 
 void CRedFirePlant::OnNoCollision(DWORD dt) {

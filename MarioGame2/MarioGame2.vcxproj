@@ -151,6 +151,7 @@
     <ClCompile Include="ColorBox.cpp" />
     <ClCompile Include="debug.cpp" />
     <ClCompile Include="FireBall.cpp" />
+    <ClCompile Include="Font.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Goomba.cpp" />
@@ -168,6 +169,7 @@
     <ClCompile Include="RedFirePlant.cpp" />
     <ClCompile Include="RedMushroomItem.cpp" />
     <ClCompile Include="SampleKeyEventHandler.cpp" />
+    <ClCompile Include="Score.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="Textures.cpp" />
@@ -185,6 +187,7 @@
     <ClInclude Include="ColorBox.h" />
     <ClInclude Include="debug.h" />
     <ClInclude Include="FireBall.h" />
+    <ClInclude Include="Font.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Goomba.h" />
@@ -203,6 +206,7 @@
     <ClInclude Include="RedMushroomItem.h" />
     <ClInclude Include="SampleKeyEventHandler.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="Score.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="Texture.h" />

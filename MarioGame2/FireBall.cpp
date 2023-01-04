@@ -22,8 +22,6 @@ void CFireBall::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 void CFireBall::Render() {
 	if (state == FIREBALL_STATE_ATTACK)
 		CAnimations::GetInstance()->Get(ID_ANI_FIREBALL_ATTACK)->Render(x, y);
-
-	this->RenderBoundingBox();
 }
 
 void CFireBall::OnNoCollision(DWORD dt) {

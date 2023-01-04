@@ -67,10 +67,6 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithPortal(e);
 	else if (dynamic_cast<CQuestionBrick*>(e->obj))
 		OnCollisionWithQuestionBrick(e);
-	else if (dynamic_cast<CRedMushroomItem*>(e->obj))
-		OnCollisionWithRedMushroomItem(e);
-	else if (dynamic_cast<CGreenMushroomItem*>(e->obj))
-		OnCollisionWithGreenMushroomItem(e);
 	else if (dynamic_cast<CLeafItem*>(e->obj))
 		OnCollisionWithLeafItem(e);
 	else if (dynamic_cast<CRedFirePlant*>(e->obj))
@@ -155,7 +151,8 @@ void CMario::OnCollisionWithRedMushroomItem(LPCOLLISIONEVENT e) {
 
 	if (rmi->GetState() == RED_MUSHROOM_ITEM_STATE_RUNNING) 
 	{
-		e->obj->Delete();
+		rmi->SetState(RED_MUSHROOM_ITEM_STATE_DISAPPEAR);
+		rmi->GetScore()->SetState(SCORE_STATE_POP_UP);
 		SetLevel(MARIO_LEVEL_BIG);
 	}
 }
@@ -176,8 +173,16 @@ void CMario::OnCollisionWithLeafItem(LPCOLLISIONEVENT e) {
 		li->GetState() == LEAF_ITEM_STATE_FALLING_RIGHT
 		)
 	{
-		li->Delete();
+		li->SetState(LEAF_ITEM_STATE_DISAPPEAR);
+
+		float liX, liY;
+		li->GetPosition(liX, liY);
+		li->GetScore()->SetStartX(liX);
+		li->GetScore()->SetStartY(liY);
+		li->GetScore()->SetState(SCORE_STATE_POP_UP);
 	}
+
+	// DebugOut(L"Mario collision with Leaf Item\n");
 }
 
 void CMario::OnCollisionWithRedFirePlant(LPCOLLISIONEVENT e) {
@@ -370,8 +375,6 @@ void CMario::Render()
 		aniId = GetAniIdSmall();
 
 	animations->Get(aniId)->Render(x, y);
-
-	RenderBoundingBox();
 }
 
 void CMario::SetState(int state)

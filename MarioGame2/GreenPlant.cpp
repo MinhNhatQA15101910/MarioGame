@@ -26,8 +26,6 @@ void CGreenPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
 void CGreenPlant::Render() {
 	CAnimations::GetInstance()->Get(ID_ANI_GREEN_PLANT)->Render(x, y);
-
-	this->RenderBoundingBox();
 }
 
 void CGreenPlant::OnNoCollision(DWORD dt) {

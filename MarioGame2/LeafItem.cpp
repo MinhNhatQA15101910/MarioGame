@@ -3,20 +3,25 @@
 
 #include "QuestionBrick.h"
 #include "Platform.h"
+#include "Mario.h"
 
 void CLeafItem::Render() {
 	int ani = ID_ANI_LEAF_ITEM_LEFT;
 	if (state == LEAF_ITEM_STATE_FALLING_RIGHT)
 		ani = ID_ANI_LEAF_ITEM_RIGHT;
 
-	CAnimations::GetInstance()->Get(ani)->Render(x, y);
+	if (this->state != LEAF_ITEM_STATE_DISAPPEAR)
+		CAnimations::GetInstance()->Get(ani)->Render(x, y);
 
-	this->RenderBoundingBox();
+	this->score->Render();
 }
 
 void CLeafItem::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	vx += ax * dt;
 	vy += ay * dt;
+
+	if (this->score->GetState() == SCORE_STATE_IDLE)
+		this->score->SetPosition(this->x, this->y);
 
 	if (this->y < this->top_edge && this->state == LEAF_ITEM_STATE_POP_UP)
 		SetState(this->state = LEAF_ITEM_STATE_FALLING_RIGHT);
@@ -25,6 +30,16 @@ void CLeafItem::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 		SetState(LEAF_ITEM_STATE_FALLING_LEFT);
 	else if (this->x < this->left_edge && this->state == LEAF_ITEM_STATE_FALLING_LEFT)
 		SetState(LEAF_ITEM_STATE_FALLING_RIGHT);
+
+	if (this->state == LEAF_ITEM_STATE_DISAPPEAR)
+		this->SetPosition(this->start_x, this->start_y);
+
+	if (this->state == LEAF_ITEM_STATE_DISAPPEAR && this->score->GetState() == SCORE_STATE_DISAPPEAR) {
+		this->Delete();
+		return;
+	}
+
+	this->score->Update(dt, coObjects);
 
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
@@ -46,14 +61,14 @@ void CLeafItem::OnCollisionWith(LPCOLLISIONEVENT e) {
 	if (e->obj->IsBlocking()) return;
 	if (dynamic_cast<CQuestionBrick*>(e->obj)) return;
 	if (dynamic_cast<CPlatform*>(e->obj)) return;
+	if (dynamic_cast<CMario*>(e->obj)) return;
 }
 
 void CLeafItem::SetState(int state) {
-	DebugOut(L"Leaf Change State: %d\n", state);
-
 	CGameObject::SetState(state);
 	switch (state) {
 	case LEAF_ITEM_STATE_IDLE:
+	case LEAF_ITEM_STATE_DISAPPEAR:
 		vx = 0.0f;
 		vy = 0.0f;
 		ax = 0.0f;

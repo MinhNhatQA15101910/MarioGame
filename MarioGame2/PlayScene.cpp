@@ -20,6 +20,7 @@
 #include "GreenFirePlant.h"
 #include "GreenPlant.h"
 #include "FireBall.h"
+#include "Score.h"
 
 #include "SampleKeyEventHandler.h"
 
@@ -132,7 +133,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_COIN: obj = new CCoin(x, y, OBJECT_TYPE_COIN); break;
 	case OBJECT_TYPE_RED_FIRE_PLANT: obj = new CRedFirePlant(x, y, OBJECT_TYPE_RED_FIRE_PLANT); break;
 	case OBJECT_TYPE_GREEN_FIRE_PLANT: obj = new CGreenFirePlant(x, y, OBJECT_TYPE_GREEN_FIRE_PLANT); break;
-	case OBJECT_TYPE_GREEN_PLANT: obj = new CGreenPlant(x, y, OBJECT_TYPE_GREEN_PLANT); break;
+	case OBJECT_TYPE_GREEN_PLANT: obj = new CGreenPlant(x, y, OBJECT_TYPE_GREEN_PLANT); break;	 
 	case OBJECT_TYPE_QUESTION_BRICK:
 	{
 		int item_type = atoi(tokens[3].c_str());
@@ -223,13 +224,15 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 	// General object setup
 	if (obj != NULL) {
+		obj->SetPosition(x, y);
+		objects.push_back(obj);
+
 		if (obj->GetSubObj() != NULL) {
 			obj->GetSubObj()->SetPosition(x, y);
 			objects.push_back(obj->GetSubObj());
 		}
 
-		obj->SetPosition(x, y);
-		objects.push_back(obj);
+		
 	}
 }
 
