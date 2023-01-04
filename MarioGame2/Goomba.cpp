@@ -1,7 +1,9 @@
 #include "Goomba.h"
+#include "AssetIDs.h"
 
 CGoomba::CGoomba(float x, float y, int object_type) :CGameObject(x, y, object_type)
 {
+	this->score = new CScore(x, y, OBJECT_TYPE_SCORE, 100);
 	this->ax = 0;
 	this->ay = GOOMBA_GRAVITY;
 	die_start = -1;
@@ -52,11 +54,18 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	vy += ay * dt;
 	vx += ax * dt;
 
+	if (this->score->GetState() == SCORE_STATE_IDLE)
+		this->score->SetPosition(this->x, this->y);
+
 	if ((state == GOOMBA_STATE_DIE) && (GetTickCount64() - die_start > GOOMBA_DIE_TIMEOUT))
-	{
-		isDeleted = true;
+		this->SetState(GOOMBA_STATE_DISAPPEAR);
+
+	if (this->state == GOOMBA_STATE_DISAPPEAR && this->score->GetState() == SCORE_STATE_DISAPPEAR) {
+		this->Delete();
 		return;
 	}
+
+	this->score->Update(dt, coObjects);
 
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
@@ -71,7 +80,10 @@ void CGoomba::Render()
 		aniId = ID_ANI_GOOMBA_DIE;
 	}
 
-	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
+	if (this->state != GOOMBA_STATE_DISAPPEAR)
+		CAnimations::GetInstance()->Get(aniId)->Render(x, y);
+
+	this->score->Render();
 }
 
 void CGoomba::SetState(int state)

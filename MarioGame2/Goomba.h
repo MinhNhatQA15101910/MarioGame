@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "Score.h"
 
 #define GOOMBA_GRAVITY 0.002f
 #define GOOMBA_WALKING_SPEED 0.03f
@@ -12,6 +13,7 @@
 
 #define GOOMBA_STATE_WALKING 100
 #define GOOMBA_STATE_DIE 200
+#define GOOMBA_STATE_DISAPPEAR 300
 
 #define ID_ANI_GOOMBA_WALKING 5000
 #define ID_ANI_GOOMBA_DIE 5001
@@ -19,6 +21,8 @@
 class CGoomba : public CGameObject
 {
 protected:
+	CScore* score;
+	
 	float ax;
 	float ay;
 
@@ -37,4 +41,6 @@ protected:
 public:
 	CGoomba(float x, float y, int object_type);
 	virtual void SetState(int state);
+
+	CScore* GetScore() { return this->score; }
 };
