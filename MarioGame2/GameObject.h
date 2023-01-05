@@ -33,6 +33,7 @@ protected:
 	bool isDeleted;
 
 	CGameObject* subObj;
+	CGameObject* subObj2;
 
 public:
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }
@@ -47,7 +48,7 @@ public:
 	void RenderBoundingBox();
 
 	CGameObject();
-	CGameObject(float x, float y, int object_type) :CGameObject() { this->x = x; this->y = y; this->objectType = object_type; this->subObj = NULL; }
+	CGameObject(float x, float y, int object_type) :CGameObject() { this->x = x; this->y = y; this->objectType = object_type; this->subObj = NULL; this->subObj2 = NULL; }
 
 	virtual int GetObjectType() { return this->objectType; }
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom) = 0;
@@ -55,7 +56,9 @@ public:
 	virtual void Render() = 0;
 	virtual void SetState(int state) { this->state = state; }
 	virtual void SetSubObj(LPGAMEOBJECT obj) { this->subObj = obj; }
+	virtual void SetSubObj2(LPGAMEOBJECT obj2) { this->subObj2 = obj2; }
 	virtual LPGAMEOBJECT GetSubObj() { return this->subObj; }
+	virtual LPGAMEOBJECT GetSubObj2() { return this->subObj2; }
 
 	//
 	// Collision ON or OFF ? This can change depending on object's state. For example: die

@@ -93,8 +93,6 @@ CRedFirePlant::CRedFirePlant(float x, float y, int object_type) : CGameObject(x,
 }
 
 void CRedFirePlant::SetState(int state) {
-	DebugOut(L"State Change: %d\n", state);
-
 	CGameObject::SetState(state);
 	switch (state) {
 	case RED_FIRE_PLANT_STATE_POP_UP:

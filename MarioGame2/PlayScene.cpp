@@ -21,6 +21,7 @@
 #include "GreenPlant.h"
 #include "FireBall.h"
 #include "Score.h"
+#include "RedKoopa.h"
 
 #include "SampleKeyEventHandler.h"
 
@@ -134,6 +135,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_RED_FIRE_PLANT: obj = new CRedFirePlant(x, y, OBJECT_TYPE_RED_FIRE_PLANT); break;
 	case OBJECT_TYPE_GREEN_FIRE_PLANT: obj = new CGreenFirePlant(x, y, OBJECT_TYPE_GREEN_FIRE_PLANT); break;
 	case OBJECT_TYPE_GREEN_PLANT: obj = new CGreenPlant(x, y, OBJECT_TYPE_GREEN_PLANT); break;	 
+	case OBJECT_TYPE_RED_KOOPA: obj = new CRedKoopa(x, y, OBJECT_TYPE_RED_KOOPA); break;
 	case OBJECT_TYPE_QUESTION_BRICK:
 	{
 		int item_type = atoi(tokens[3].c_str());
@@ -143,19 +145,19 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		switch (item_type) {
 		case ITEM_TYPE_COIN:
 			obj->SetSubObj(new CCoinItem(x, y, OBJECT_TYPE_ITEM, item_type));
-			DebugOutTitle(L"Coin created!\n");
 			break;
 		case ITEM_TYPE_RED_MUSHROOM:
 			obj->SetSubObj(new CRedMushroomItem(x, y, OBJECT_TYPE_ITEM, item_type));
-			DebugOut(L"Red Mushroom created!\n");
 			break;
 		case ITEM_TYPE_GREEN_MUSHROOM:
 			obj->SetSubObj(new CGreenMushroomItem(x, y, OBJECT_TYPE_ITEM, item_type));
-			DebugOut(L"Green Mushroom created!\n");
 			break;
 		case ITEM_TYPE_LEAF:
 			obj->SetSubObj(new CLeafItem(x, y, OBJECT_TYPE_ITEM, item_type));
-			DebugOut(L"Leaf created!\n");
+			break;
+		case ITEM_TYPE_RED_MUSHROOM_LEAF:
+			obj->SetSubObj(new CRedMushroomItem(x, y, OBJECT_TYPE_ITEM, item_type));
+			obj->SetSubObj2(new CLeafItem(x, y, OBJECT_TYPE_ITEM, item_type));
 			break;
 		}
 
@@ -227,6 +229,11 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		if (obj->GetSubObj() != NULL) {
 			obj->GetSubObj()->SetPosition(x, y);
 			objects.push_back(obj->GetSubObj());
+		}
+
+		if (obj->GetSubObj2() != NULL) {
+			obj->GetSubObj2()->SetPosition(x, y);
+			objects.push_back(obj->GetSubObj2());
 		}
 
 		obj->SetPosition(x, y);
@@ -389,20 +396,14 @@ void CPlayScene::SetPlayerToObjects() {
 		if (obj->GetObjectType() == OBJECT_TYPE_COLOR_BOX) {
 			CColorBox* cb = dynamic_cast<CColorBox*>(obj);
 			cb->SetPlayer(this->player);
-
-			DebugOut(L"Player has been added to color box\n");
 		}
 		else if (obj->GetObjectType() == OBJECT_TYPE_RED_FIRE_PLANT) {
 			CRedFirePlant* rfp = dynamic_cast<CRedFirePlant*>(obj);
 			rfp->SetPlayer(this->player);
-
-			DebugOut(L"Player has been added to red fire plant\n");
 		}
 		else if (obj->GetObjectType() == OBJECT_TYPE_GREEN_FIRE_PLANT) {
 			CGreenFirePlant* gfp = dynamic_cast<CGreenFirePlant*>(obj);
 			gfp->SetPlayer(this->player);
-
-			DebugOut(L"Player has been added to green fire plant\n");
 		}
 	}
 }
@@ -416,9 +417,7 @@ void CPlayScene::SetObjectsToObjects() {
 			for (LPGAMEOBJECT obj2 : objects) {
 				if (obj2->GetObjectType() == OBJECT_TYPE_ITEM && dynamic_cast<CRedMushroomItem*>(obj2)) {
 					CRedMushroomItem* rmi = dynamic_cast<CRedMushroomItem*>(obj2);
-					cb->setRedMushroomItem(rmi);
-					DebugOut(L"Red Mushroom has been added to objects\n");
-				}
+					cb->setRedMushroomItem(rmi);				}
 			}
 		}
 	}

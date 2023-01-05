@@ -165,6 +165,9 @@
     <ClCompile Include="Score.cpp">
       <Filter>Game Objects\Score</Filter>
     </ClCompile>
+    <ClCompile Include="RedKoopa.cpp">
+      <Filter>Game Objects\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene.h">
@@ -274,6 +277,9 @@
     </ClInclude>
     <ClInclude Include="Score.h">
       <Filter>Game Objects\Score</Filter>
+    </ClInclude>
+    <ClInclude Include="RedKoopa.h">
+      <Filter>Game Objects\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
