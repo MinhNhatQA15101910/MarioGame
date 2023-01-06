@@ -103,8 +103,12 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 		{
 			if (goomba->GetState() != GOOMBA_STATE_DIE)
 			{
-				if (level > MARIO_LEVEL_SMALL)
+				if (level == MARIO_LEVEL_TANOOKI)
 				{
+					level = MARIO_LEVEL_BIG;
+					StartUntouchable();
+				}
+				else if (level == MARIO_LEVEL_BIG) {
 					level = MARIO_LEVEL_SMALL;
 					StartUntouchable();
 				}
@@ -149,7 +153,7 @@ void CMario::OnCollisionWithQuestionBrick(LPCOLLISIONEVENT e) {
 					qb->GetSubObj()->SetState(RED_MUSHROOM_ITEM_STATE_POP_UP);
 					qb->GetSubObj2()->Delete();
 				}
-				else if (this->level == MARIO_LEVEL_BIG) {
+				else {
 					qb->GetSubObj2()->SetState(LEAF_ITEM_STATE_POP_UP);
 					qb->GetSubObj()->Delete();
 				}
@@ -174,7 +178,8 @@ void CMario::OnCollisionWithGreenMushroomItem(LPCOLLISIONEVENT e) {
 
 	if (gmi->GetState() == GREEN_MUSHROOM_ITEM_STATE_RUNNING)
 	{
-		e->obj->Delete();
+		gmi->SetState(GREEN_MUSHROOM_ITEM_STATE_DISAPPEAR);
+		gmi->GetScore()->SetState(SCORE_STATE_POP_UP);
 	}
 }
 
@@ -201,8 +206,12 @@ void CMario::OnCollisionWithRedFirePlant(LPCOLLISIONEVENT e) {
 	if (e->obj->GetState() != RED_FIRE_PLANT_STATE_IDLE) {
 		if (untouchable == 0)
 		{
-			if (level > MARIO_LEVEL_SMALL)
+			if (level == MARIO_LEVEL_TANOOKI)
 			{
+				level = MARIO_LEVEL_BIG;
+				StartUntouchable();
+			}
+			else if (level == MARIO_LEVEL_BIG) {
 				level = MARIO_LEVEL_SMALL;
 				StartUntouchable();
 			}
@@ -219,8 +228,12 @@ void CMario::OnCollisionWithGreenFirePlant(LPCOLLISIONEVENT e) {
 	if (e->obj->GetState() != GREEN_FIRE_PLANT_STATE_IDLE) {
 		if (untouchable == 0)
 		{
-			if (level > MARIO_LEVEL_SMALL)
+			if (level == MARIO_LEVEL_TANOOKI)
 			{
+				level = MARIO_LEVEL_BIG;
+				StartUntouchable();
+			}
+			else if (level == MARIO_LEVEL_BIG) {
 				level = MARIO_LEVEL_SMALL;
 				StartUntouchable();
 			}
@@ -237,8 +250,12 @@ void CMario::OnCollisionWithGreenPlant(LPCOLLISIONEVENT e) {
 	if (e->obj->GetState() != GREEN_PLANT_STATE_IDLE_BOTTOM) {
 		if (untouchable == 0)
 		{
-			if (level > MARIO_LEVEL_SMALL)
+			if (level == MARIO_LEVEL_TANOOKI)
 			{
+				level = MARIO_LEVEL_BIG;
+				StartUntouchable();
+			}
+			else if (level == MARIO_LEVEL_BIG) {
 				level = MARIO_LEVEL_SMALL;
 				StartUntouchable();
 			}
@@ -357,7 +374,7 @@ int CMario::GetAniIdTanooki()
 					if (nx > 0) aniId = ID_ANI_MARIO_TANOOKI_HIT_RIGHT;
 					else aniId = ID_ANI_MARIO_TANOOKI_HIT_LEFT;
 				}
-				else if (isCarrying == false)
+				else if (!isCarrying)
 				{
 					if (nx > 0) aniId = ID_ANI_MARIO_TANOOKI_IDLE_RIGHT;
 					else aniId = ID_ANI_MARIO_TANOOKI_IDLE_LEFT;
@@ -377,7 +394,7 @@ int CMario::GetAniIdTanooki()
 				}
 				else if (ax < 0)
 					aniId = ID_ANI_MARIO_TANOOKI_BRACE_RIGHT;
-				else if (ax == MARIO_ACCEL_RUN_X && isCarrying == true)
+				else if (ax == MARIO_ACCEL_RUN_X && isCarrying)
 					aniId = ID_ANI_MARIO_TANOOKI_CARRY_RIGHT;
 				else if (ax == MARIO_ACCEL_RUN_X && vx == maxVx)
 					aniId = ID_ANI_MARIO_TANOOKI_RUNNING_RIGHT;
@@ -398,7 +415,7 @@ int CMario::GetAniIdTanooki()
 				}
 				else if (ax > 0)
 					aniId = ID_ANI_MARIO_TANOOKI_BRACE_LEFT;
-				else if (ax == -MARIO_ACCEL_RUN_X && isCarrying == true)
+				else if (ax == -MARIO_ACCEL_RUN_X && isCarrying)
 					aniId = ID_ANI_MARIO_TANOOKI_CARRY_LEFT;
 				else if (ax == -MARIO_ACCEL_RUN_X && abs(vx) == abs(maxVx))
 					aniId = ID_ANI_MARIO_TANOOKI_RUNNING_LEFT;
@@ -494,7 +511,7 @@ void CMario::Render()
 
 	animations->Get(aniId)->Render(x, y);
 
-	RenderBoundingBox();
+	// RenderBoundingBox();
 }
 
 void CMario::SetState(int state)
@@ -504,16 +521,36 @@ void CMario::SetState(int state)
 
 	switch (state)
 	{
+	case MARIO_STATE_HIT:
+		if (level == MARIO_LEVEL_TANOOKI && hittable_start == -1) StartHittable();
+		break;
+	case MARIO_STATE_CARRY_RELEASE:
+		if (isCarrying) isCarrying = false;
+		break;
 	case MARIO_STATE_RUNNING_RIGHT:
 		if (isSitting) break;
-		maxVx = MARIO_RUNNING_SPEED;
-		ax = MARIO_ACCEL_RUN_X;
+
+		if (isFlying && !isOnPlatform && flyable) maxVx = MARIO_FLY_SPEED;
+		else if (isCarrying) maxVx = MARIO_CARRY_SPEED;
+		else if (isOnPlatform) maxVx = MARIO_RUNNING_SPEED;
+
+		if (vx < 0) ax = MARIO_ACCEL_RUN_X * 3;
+		else if (isFlying && !isOnPlatform && flyable) ax = MARIO_ACCEL_FLY_X;
+		else if (isOnPlatform) ax = MARIO_ACCEL_RUN_X;
+
 		nx = 1;
 		break;
 	case MARIO_STATE_RUNNING_LEFT:
 		if (isSitting) break;
-		maxVx = -MARIO_RUNNING_SPEED;
-		ax = -MARIO_ACCEL_RUN_X;
+
+		if (isFlying && !isOnPlatform && flyable) maxVx = -MARIO_FLY_SPEED;
+		else if (isCarrying) maxVx = -MARIO_CARRY_SPEED;
+		else if (isOnPlatform) maxVx = -MARIO_RUNNING_SPEED;
+
+		if (vx > 0) ax = -MARIO_ACCEL_RUN_X * 3;
+		else if (isFlying == true && !isOnPlatform && flyable) ax = -MARIO_ACCEL_FLY_X;
+		else if (isOnPlatform) ax = -MARIO_ACCEL_RUN_X;
+
 		nx = -1;
 		break;
 	case MARIO_STATE_WALKING_RIGHT:
@@ -528,11 +565,22 @@ void CMario::SetState(int state)
 		ax = -MARIO_ACCEL_WALK_X;
 		nx = -1;
 		break;
+	case MARIO_STATE_LANDING:
+		vy = -MARIO_LANDING_SPEED;
+		break;
+	case MARIO_STATE_FLY:
+		if (isFlying) vy = -MARIO_JUMP_SPEED_Y;
+		flyable = true;
+		break;
 	case MARIO_STATE_JUMP:
 		if (isSitting) break;
 		if (isOnPlatform)
 		{
-			if (abs(this->vx) == MARIO_RUNNING_SPEED)
+			if (abs(vx) == MARIO_RUNNING_SPEED && level == MARIO_LEVEL_TANOOKI) {
+				StartFlying();
+				vy = -MARIO_JUMP_SPEED_Y;
+			}
+			else if (abs(this->vx) == MARIO_RUNNING_SPEED)
 				vy = -MARIO_JUMP_RUN_SPEED_Y;
 			else
 				vy = -MARIO_JUMP_SPEED_Y;
@@ -585,45 +633,47 @@ void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom
 		right = left + MARIO_MAP_SIZE;
 		bottom = top + MARIO_MAP_SIZE;
 	}
-	else if (level == MARIO_LEVEL_TANOOKI) {
-		if (isSitting)
+	else {
+		if (level == MARIO_LEVEL_TANOOKI) {
+			if (isSitting)
+			{
+				left = x - MARIO_BIG_SITTING_BBOX_WIDTH / 2;
+				top = y - MARIO_BIG_SITTING_BBOX_HEIGHT / 2;
+				right = left + MARIO_BIG_SITTING_BBOX_WIDTH;
+				bottom = top + MARIO_BIG_SITTING_BBOX_HEIGHT;
+			}	
+			else
+			{
+				left = x - MARIO_TANOOKI_BBOX_WIDTH / 2;
+				top = y - MARIO_TANOOKI_BBOX_HEIGHT / 2;
+				right = left + MARIO_TANOOKI_BBOX_WIDTH;
+				bottom = top + MARIO_TANOOKI_BBOX_HEIGHT;
+			}
+		}
+		else if (level == MARIO_LEVEL_BIG)
 		{
-			left = x - MARIO_BIG_SITTING_BBOX_WIDTH / 2;
-			top = y - MARIO_BIG_SITTING_BBOX_HEIGHT / 2;
-			right = left + MARIO_BIG_SITTING_BBOX_WIDTH;
-			bottom = top + MARIO_BIG_SITTING_BBOX_HEIGHT;
+			if (isSitting)
+			{
+				left = x - MARIO_BIG_SITTING_BBOX_WIDTH / 2;
+				top = y - MARIO_BIG_SITTING_BBOX_HEIGHT / 2;
+				right = left + MARIO_BIG_SITTING_BBOX_WIDTH;
+				bottom = top + MARIO_BIG_SITTING_BBOX_HEIGHT;
+			}
+			else
+			{
+				left = x - MARIO_BIG_BBOX_WIDTH / 2;
+				top = y - MARIO_BIG_BBOX_HEIGHT / 2;
+				right = left + MARIO_BIG_BBOX_WIDTH;
+				bottom = top + MARIO_BIG_BBOX_HEIGHT;
+			}	
 		}
 		else
 		{
-			left = x - MARIO_TANOOKI_BBOX_WIDTH / 2;
-			top = y - MARIO_TANOOKI_BBOX_HEIGHT / 2;
-			right = left + MARIO_TANOOKI_BBOX_WIDTH;
-			bottom = top + MARIO_TANOOKI_BBOX_HEIGHT;
+			left = x - MARIO_SMALL_BBOX_WIDTH / 2;
+			top = y - MARIO_SMALL_BBOX_HEIGHT / 2;
+			right = left + MARIO_SMALL_BBOX_WIDTH;
+			bottom = top + MARIO_SMALL_BBOX_HEIGHT;
 		}
-	}
-	if (level == MARIO_LEVEL_BIG)
-	{
-		if (isSitting)
-		{
-			left = x - MARIO_BIG_SITTING_BBOX_WIDTH / 2;
-			top = y - MARIO_BIG_SITTING_BBOX_HEIGHT / 2;
-			right = left + MARIO_BIG_SITTING_BBOX_WIDTH;
-			bottom = top + MARIO_BIG_SITTING_BBOX_HEIGHT;
-		}
-		else
-		{
-			left = x - MARIO_BIG_BBOX_WIDTH / 2;
-			top = y - MARIO_BIG_BBOX_HEIGHT / 2;
-			right = left + MARIO_BIG_BBOX_WIDTH;
-			bottom = top + MARIO_BIG_BBOX_HEIGHT;
-		}
-	}
-	else
-	{
-		left = x - MARIO_SMALL_BBOX_WIDTH / 2;
-		top = y - MARIO_SMALL_BBOX_HEIGHT / 2;
-		right = left + MARIO_SMALL_BBOX_WIDTH;
-		bottom = top + MARIO_SMALL_BBOX_HEIGHT;
 	}
 }
 

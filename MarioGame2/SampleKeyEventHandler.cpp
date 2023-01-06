@@ -76,4 +76,7 @@ void CSampleKeyHandler::KeyState(BYTE* states)
 	}
 	else
 		mario->SetState(MARIO_STATE_IDLE);
+
+	if (game->IsKeyDown(DIK_SPACE))
+		mario->SetState(MARIO_STATE_KICK_LEFT);
 }

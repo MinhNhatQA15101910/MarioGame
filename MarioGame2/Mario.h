@@ -231,7 +231,7 @@ public:
 		ay = MARIO_GRAVITY;
 
 		live = 4;
-		level = MARIO_LEVEL_TANOOKI;
+		level = MARIO_LEVEL_SMALL;
 		untouchable = 0;
 		untouchable_start = -1;
 		kickable = 0;

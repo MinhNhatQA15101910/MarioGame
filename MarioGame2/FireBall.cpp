@@ -38,7 +38,11 @@ void CFireBall::OnCollisionWith(LPCOLLISIONEVENT e) {
 		if (this->player->GetUntouchable() == 0) {
 			this->SetState(FIREBALL_STATE_IDLE);
 
-			if (player->GetLevel() > MARIO_LEVEL_SMALL) {
+			if (player->GetLevel() == MARIO_LEVEL_TANOOKI) {
+				player->SetLevel(MARIO_LEVEL_BIG);
+				player->StartUntouchable();
+			}
+			else if (player->GetLevel() == MARIO_LEVEL_BIG) {
 				player->SetLevel(MARIO_LEVEL_SMALL);
 				player->StartUntouchable();
 			}
