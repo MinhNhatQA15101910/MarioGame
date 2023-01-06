@@ -1,60 +1,96 @@
 #include "Font.h"
 
-CFont::CFont() {
-	CSprites* sprites = CSprites::GetInstance();
-	fonts.insert(make_pair('0', sprites->Get(SPRITE_ID_FONT_0)));
-	fonts.insert(make_pair('1', sprites->Get(SPRITE_ID_FONT_1)));
-	fonts.insert(make_pair('2', sprites->Get(SPRITE_ID_FONT_2)));
-	fonts.insert(make_pair('3', sprites->Get(SPRITE_ID_FONT_3)));
-	fonts.insert(make_pair('4', sprites->Get(SPRITE_ID_FONT_4)));
-	fonts.insert(make_pair('5', sprites->Get(SPRITE_ID_FONT_5)));
-	fonts.insert(make_pair('6', sprites->Get(SPRITE_ID_FONT_6)));
-	fonts.insert(make_pair('7', sprites->Get(SPRITE_ID_FONT_7)));
-	fonts.insert(make_pair('8', sprites->Get(SPRITE_ID_FONT_8)));
-	fonts.insert(make_pair('9', sprites->Get(SPRITE_ID_FONT_9)));
-	fonts.insert(make_pair('A', sprites->Get(SPRITE_ID_FONT_A)));
-	fonts.insert(make_pair('B', sprites->Get(SPRITE_ID_FONT_B)));
-	fonts.insert(make_pair('C', sprites->Get(SPRITE_ID_FONT_C)));
-	fonts.insert(make_pair('D', sprites->Get(SPRITE_ID_FONT_D)));
-	fonts.insert(make_pair('E', sprites->Get(SPRITE_ID_FONT_E)));
-	fonts.insert(make_pair('F', sprites->Get(SPRITE_ID_FONT_F)));
-	fonts.insert(make_pair('G', sprites->Get(SPRITE_ID_FONT_G)));
-	fonts.insert(make_pair('H', sprites->Get(SPRITE_ID_FONT_H)));
-	fonts.insert(make_pair('I', sprites->Get(SPRITE_ID_FONT_I)));
-	fonts.insert(make_pair('J', sprites->Get(SPRITE_ID_FONT_J)));
-	fonts.insert(make_pair('K', sprites->Get(SPRITE_ID_FONT_K)));
-	fonts.insert(make_pair('L', sprites->Get(SPRITE_ID_FONT_L)));
-	fonts.insert(make_pair('M', sprites->Get(SPRITE_ID_FONT_M)));
-	fonts.insert(make_pair('N', sprites->Get(SPRITE_ID_FONT_N)));
-	fonts.insert(make_pair('O', sprites->Get(SPRITE_ID_FONT_O)));
-	fonts.insert(make_pair('P', sprites->Get(SPRITE_ID_FONT_P)));
-	fonts.insert(make_pair('Q', sprites->Get(SPRITE_ID_FONT_Q)));
-	fonts.insert(make_pair('R', sprites->Get(SPRITE_ID_FONT_R)));
-	fonts.insert(make_pair('S', sprites->Get(SPRITE_ID_FONT_S)));
-	fonts.insert(make_pair('T', sprites->Get(SPRITE_ID_FONT_T)));
-	fonts.insert(make_pair('U', sprites->Get(SPRITE_ID_FONT_U)));
-	fonts.insert(make_pair('V', sprites->Get(SPRITE_ID_FONT_V)));
-	fonts.insert(make_pair('W', sprites->Get(SPRITE_ID_FONT_W)));
-	fonts.insert(make_pair('X', sprites->Get(SPRITE_ID_FONT_X)));
-	fonts.insert(make_pair('Y', sprites->Get(SPRITE_ID_FONT_Y)));
-	fonts.insert(make_pair('Z', sprites->Get(SPRITE_ID_FONT_Z)));
+CFont::CFont(float x, float y, int object_type, int type) : CGameObject(x, y, object_type) {
+	this->type = type;
+	this->visible = false;
 }
 
-LPSPRITE CFont::mapping(char c) {
-	int ic = (int)c;
-	if (!(ic >= 48 && ic <= 57) || (ic >= 64 && ic <= 90)) return NULL;
-	return fonts.at(c);
+void CFont::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+{
 }
 
-std::vector<LPSPRITE> CFont::StringToFont(string str) {
-	std::vector<LPSPRITE> sprites;
-	LPSPRITE sprite;
-	char c;
-	for (unsigned int i = 0; i < str.size(); i++) {
-		c = (char)str[i];
-		sprite = mapping(c);
-		if (sprite != NULL) sprites.push_back(sprite);
+void CFont::Render() {
+	int ani = -1;
+
+	switch (type) {
+	case 0:
+		ani = ANI_ID_0;
+		break;
+	case 1:
+		ani = ANI_ID_1;
+		break;
+	case 2:
+		ani = ANI_ID_2;
+		break;
+	case 3:
+		ani = ANI_ID_3;
+		break;
+	case 4:
+		ani = ANI_ID_4;
+		break;
+	case 5:
+		ani = ANI_ID_5;
+		break;
+	case 6:
+		ani = ANI_ID_6;
+		break;
+	case 7:
+		ani = ANI_ID_7;
+		break;
+	case 8:
+		ani = ANI_ID_8;
+		break;
+	case 9:
+		ani = ANI_ID_9;
+		break;
+	case 10:
+		ani = ANI_ID_SPEED;
+		break;
+	case 11:
+		ani = ANI_ID_FLYABLE;
+		break;
+	case 12:
+		ani = ANI_ID_MUSHROOM;
+		break;
+	case 13:
+		ani = ANI_ID_FLOWER;
+		break;
+	case 14:
+		ani = ANI_ID_STAR;
+		break;
 	}
 
-	return sprites;
+	if (visible && (type != -1))
+		CAnimations::GetInstance()->Get(ani)->Render(x, y);
+}
+
+void CFont::GetBoundingBox(float& left, float& top, float& right, float& bottom) {
+	switch (type)
+	{
+	case 0:
+	case 1:
+	case 2:
+	case 3:
+	case 4:
+	case 5:
+	case 6:
+	case 7:
+	case 8:
+	case 9:
+	case 10:
+	case 11:
+		left = x - FONT_BBOX_WIDTH / 2;
+		top = y - FONT_BBOX_HEIGHT / 2;
+		right = left + FONT_BBOX_WIDTH;
+		bottom = top + FONT_BBOX_HEIGHT;
+		break;
+	case 12:
+	case 13:
+	case 14:
+		left = x - ITEM_SIZE / 2;
+		top = y - ITEM_SIZE / 2;
+		right = left + ITEM_SIZE;
+		bottom = top + ITEM_SIZE;
+		break;
+	}
 }

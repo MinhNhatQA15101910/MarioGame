@@ -19,9 +19,6 @@
     <Filter Include="Game Objects">
       <UniqueIdentifier>{f691bdf9-90e9-4a78-8072-2ca1338050e0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game Objects\Enemies">
-      <UniqueIdentifier>{123212d5-5416-4e9f-97c2-8df607106516}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game Objects\Question Brick">
       <UniqueIdentifier>{a895d3b6-4fb9-407a-aa57-69343c32e5f1}</UniqueIdentifier>
     </Filter>
@@ -64,14 +61,17 @@
     <Filter Include="Game Objects\Score">
       <UniqueIdentifier>{17d93a5a-4f51-4cea-8b2e-2dcf05290b9d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game Objects\HUD">
+      <UniqueIdentifier>{5e9f27db-86ea-4143-8768-78f1dc0eb585}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Objects\Enemies">
+      <UniqueIdentifier>{123212d5-5416-4e9f-97c2-8df607106516}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="PlayScene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
@@ -159,14 +159,23 @@
     <ClCompile Include="GreenPlant.cpp">
       <Filter>Game Objects\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="Font.cpp">
-      <Filter>Sprite Handler</Filter>
-    </ClCompile>
     <ClCompile Include="Score.cpp">
       <Filter>Game Objects\Score</Filter>
     </ClCompile>
     <ClCompile Include="RedKoopa.cpp">
       <Filter>Game Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="HudInfo.cpp">
+      <Filter>Game Objects\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="HUD.cpp">
+      <Filter>Game Objects\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="Font.cpp">
+      <Filter>Game Objects\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -272,14 +281,20 @@
     <ClInclude Include="GreenPlant.h">
       <Filter>Game Objects\Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="Font.h">
-      <Filter>Sprite Handler</Filter>
-    </ClInclude>
     <ClInclude Include="Score.h">
       <Filter>Game Objects\Score</Filter>
     </ClInclude>
     <ClInclude Include="RedKoopa.h">
       <Filter>Game Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="HudInfo.h">
+      <Filter>Game Objects\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="HUD.h">
+      <Filter>Game Objects\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>Game Objects\HUD</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

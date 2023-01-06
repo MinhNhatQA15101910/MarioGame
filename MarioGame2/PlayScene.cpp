@@ -417,7 +417,12 @@ void CPlayScene::SetObjectsToObjects() {
 			for (LPGAMEOBJECT obj2 : objects) {
 				if (obj2->GetObjectType() == OBJECT_TYPE_ITEM && dynamic_cast<CRedMushroomItem*>(obj2)) {
 					CRedMushroomItem* rmi = dynamic_cast<CRedMushroomItem*>(obj2);
-					cb->setRedMushroomItem(rmi);				}
+					cb->setRedMushroomItem(rmi);				
+				}
+				else if (obj2->GetObjectType() == OBJECT_TYPE_RED_KOOPA) {
+					CRedKoopa* redKoopa = dynamic_cast<CRedKoopa*>(obj2);
+					cb->SetRedKoopa(redKoopa);
+				}
 			}
 		}
 	}

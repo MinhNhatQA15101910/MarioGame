@@ -15,6 +15,9 @@ void CColorBox::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	float rmix, rmiy;
 	rmi->GetPosition(rmix, rmiy);
 
+	float redKoopa_x, redKoopa_y;
+	redKoopa->GetPosition(redKoopa_x, redKoopa_y);
+
 	// if player is under color box, set isBlocking = 0
 	/*if (py > this->y || (rmi->GetState() != RED_MUSHROOM_ITEM_STATE_RUNNING)) 
 		isBlocking = 0;
@@ -23,7 +26,8 @@ void CColorBox::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
 	if (
 		(py <= this->y) ||
-		(rmiy <= this->y && rmi->GetState() == RED_MUSHROOM_ITEM_STATE_RUNNING)
+		(rmiy <= this->y && rmi->GetState() == RED_MUSHROOM_ITEM_STATE_RUNNING) || 
+		(redKoopa_y <= this->y)
 		)
 	{
 		isBlocking = 1;

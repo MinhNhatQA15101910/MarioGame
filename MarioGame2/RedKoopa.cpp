@@ -6,11 +6,15 @@
 CInvisibleBlock::CInvisibleBlock() {
 	this->start_x = 0.0f;
 	this->start_y = 0.0f;
+	this->ax = 0.0f;
+	this->ay = 0.0f;
 }
 
 CInvisibleBlock::CInvisibleBlock(float x, float y, int object_type) : CGameObject(x, y, object_type) {
 	this->start_x = x;
 	this->start_y = y;
+	this->ax = 0.0f;
+	this->ay = 0.0f;
 }
 
 void CInvisibleBlock::GetBoundingBox(float& left, float& top, float& right, float& bottom) {
@@ -30,12 +34,51 @@ void CInvisibleBlock::OnCollisionWith(LPCOLLISIONEVENT e) {
 }
 
 void CInvisibleBlock::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
+	this->vx += this->ax * dt;
+	this->vy += this->ay * dt;
+	
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
 
 void CInvisibleBlock::Render() {
 	this->RenderBoundingBox();
+}
+
+void CInvisibleBlock::SetState(int state) {
+	CGameObject::SetState(state);
+	switch (state) {
+	case RED_KOOPA_STATE_WALKING_LEFT:
+		this->ax = 0.0f;
+		this->ay = RED_KOOPA_GRAVITY;
+		this->vx = -RED_KOOPA_WALKING_SPEED;
+		this->vy = 0.0f;
+		break;
+	case RED_KOOPA_STATE_WALKING_RIGHT:
+		this->ax = 0.0f;
+		this->ay = RED_KOOPA_GRAVITY;
+		this->vx = RED_KOOPA_WALKING_SPEED;
+		this->vy = 0.0f;
+		break;
+	case RED_KOOPA_STATE_SHELL:
+		this->ax = 0.0f;
+		this->ay = RED_KOOPA_GRAVITY;
+		this->vx = 0.0f;
+		this->vy = 0.0f;
+		break;
+	case RED_KOOPA_STATE_RUNNING_LEFT:
+		this->ax = 0.0f;
+		this->ay = RED_KOOPA_GRAVITY;
+		this->vx = -RED_KOOPA_RUNNING_SPEED;
+		this->vy = 0.0f;
+		break;
+	case RED_KOOPA_STATE_RUNNING_RIGHT:
+		this->ax = 0.0f;
+		this->ay = RED_KOOPA_GRAVITY;
+		this->vx = RED_KOOPA_RUNNING_SPEED;
+		this->vy = 0.0f;
+		break;
+	}
 }
 
 void CRedKoopa::GetBoundingBox(float& left, float& top, float& right, float& bottom) {
@@ -67,6 +110,7 @@ void CRedKoopa::OnCollisionWith(LPCOLLISIONEVENT e) {
 		else if (this->state == RED_KOOPA_STATE_WALKING_LEFT) this->SetState(RED_KOOPA_STATE_WALKING_RIGHT);
 		else if (this->state == RED_KOOPA_STATE_RUNNING_RIGHT) this->SetState(RED_KOOPA_STATE_RUNNING_LEFT);
 		else if (this->state == RED_KOOPA_STATE_WALKING_LEFT) this->SetState(RED_KOOPA_STATE_WALKING_RIGHT);
+
 	}
 }
 
@@ -74,11 +118,19 @@ void CRedKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	this->vx += this->ax * dt;
 	this->vy += this->ay * dt;
 
-	if (this->state == RED_KOOPA_STATE_WALKING_LEFT)
-		this->invBlock->SetPosition(this->x - INVISIBLE_BLOCK_WIDTH, this->y + RED_KOOPA_HEIGHT - INVISIBLE_BLOCK_HEIGHT);
+	//if (this->state == RED_KOOPA_STATE_WALKING_LEFT)
+		//this->invBlock->SetPosition(this->x - INVISIBLE_BLOCK_WIDTH, this->y + RED_KOOPA_HEIGHT - INVISIBLE_BLOCK_HEIGHT);
 
-	if (this->state == RED_KOOPA_STATE_WALKING_RIGHT)
-		this->invBlock->SetPosition(this->x + RED_KOOPA_WIDTH + INVISIBLE_BLOCK_WIDTH, this->y + RED_KOOPA_HEIGHT - INVISIBLE_BLOCK_HEIGHT);
+	//if (this->state == RED_KOOPA_STATE_WALKING_RIGHT)
+		//this->invBlock->SetPosition(this->x + RED_KOOPA_WIDTH, this->y + RED_KOOPA_HEIGHT - INVISIBLE_BLOCK_HEIGHT);
+
+	if (state == RED_KOOPA_STATE_WALKING_LEFT && this->invBlock->IsFalling())
+		this->SetState(RED_KOOPA_STATE_WALKING_RIGHT);
+
+	if (state == RED_KOOPA_STATE_WALKING_RIGHT && this->invBlock->IsFalling())
+		this->SetState(RED_KOOPA_STATE_WALKING_LEFT);
+
+	this->invBlock->Update(dt, coObjects);
 
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
@@ -120,6 +172,7 @@ CRedKoopa::CRedKoopa(float x, float y, int object_type) : CGameObject(x, y, obje
 	this->ay = 0.0f;
 
 	this->SetState(RED_KOOPA_STATE_WALKING_LEFT);
+	this->invBlock->SetState(RED_KOOPA_STATE_WALKING_LEFT);
 }
 
 void CRedKoopa::SetState(int state) {
@@ -130,12 +183,16 @@ void CRedKoopa::SetState(int state) {
 		this->ay = RED_KOOPA_GRAVITY;
 		this->vx = -RED_KOOPA_WALKING_SPEED;
 		this->vy = 0.0f;
+		this->invBlock->SetPosition(this->x - INVISIBLE_BLOCK_WIDTH, this->y + RED_KOOPA_HEIGHT - INVISIBLE_BLOCK_HEIGHT);
+		this->invBlock->SetState(RED_KOOPA_STATE_WALKING_LEFT);
 		break;
 	case RED_KOOPA_STATE_WALKING_RIGHT:
 		this->ax = 0.0f;
 		this->ay = RED_KOOPA_GRAVITY;
 		this->vx = RED_KOOPA_WALKING_SPEED;
 		this->vy = 0.0f;
+		this->invBlock->SetPosition(this->x + RED_KOOPA_WIDTH, this->y + RED_KOOPA_HEIGHT - INVISIBLE_BLOCK_HEIGHT);
+		this->invBlock->SetState(RED_KOOPA_STATE_WALKING_RIGHT);
 		break;
 	case RED_KOOPA_STATE_SHELL:
 		this->ax = 0.0f;

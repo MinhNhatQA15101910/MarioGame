@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "RedMushroomItem.h"
 #include "Mario.h"
+#include "RedKoopa.h"
 
 #define COLOR_BOX_BBOX_WIDTH 16
 #define COLOR_BOX_BBOX_HEIGHT 16
@@ -11,6 +12,7 @@ class CColorBox : public CGameObject {
 private:
 	CMario* player;
 	CRedMushroomItem* rmi;
+	CRedKoopa* redKoopa;
 
 	int objectType;
 
@@ -32,9 +34,11 @@ public:
 
 		player = new CMario();
 		rmi = new CRedMushroomItem();
+		redKoopa = new CRedKoopa();
 		this->isBlocking = 0;
 	}
 
 	void SetPlayer(CMario* mario) { player = mario; }
 	void setRedMushroomItem(CRedMushroomItem* rmi) { this->rmi = rmi; }
+	void SetRedKoopa(CRedKoopa* redKoopa) { this->redKoopa = redKoopa; }
 };

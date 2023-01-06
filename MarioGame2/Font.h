@@ -1,50 +1,43 @@
 #pragma once
 
-#include "Sprites.h"
-#include <map>
+#include "GameObject.h"
 
-#define SPRITE_ID_FONT_0 360000
-#define SPRITE_ID_FONT_1 360001
-#define SPRITE_ID_FONT_2 360002
-#define SPRITE_ID_FONT_3 360003
-#define SPRITE_ID_FONT_4 360004
-#define SPRITE_ID_FONT_5 360005
-#define SPRITE_ID_FONT_6 360006
-#define SPRITE_ID_FONT_7 360007
-#define SPRITE_ID_FONT_8 360008
-#define SPRITE_ID_FONT_9 360009
-#define SPRITE_ID_FONT_A 360010
-#define SPRITE_ID_FONT_B 360011
-#define SPRITE_ID_FONT_C 360012
-#define SPRITE_ID_FONT_D 360013
-#define SPRITE_ID_FONT_E 360014
-#define SPRITE_ID_FONT_F 360015
-#define SPRITE_ID_FONT_G 360016
-#define SPRITE_ID_FONT_H 360017
-#define SPRITE_ID_FONT_I 360018
-#define SPRITE_ID_FONT_J 360019
-#define SPRITE_ID_FONT_K 360020
-#define SPRITE_ID_FONT_L 360021
-#define SPRITE_ID_FONT_M 360022
-#define SPRITE_ID_FONT_N 360023
-#define SPRITE_ID_FONT_O 360024
-#define SPRITE_ID_FONT_P 360025
-#define SPRITE_ID_FONT_Q 360026
-#define SPRITE_ID_FONT_R 360027
-#define SPRITE_ID_FONT_S 360028
-#define SPRITE_ID_FONT_T 360029
-#define SPRITE_ID_FONT_U 360030
-#define SPRITE_ID_FONT_V 360031
-#define SPRITE_ID_FONT_W 360032
-#define SPRITE_ID_FONT_X 360033
-#define SPRITE_ID_FONT_Y 360034
-#define SPRITE_ID_FONT_Z 360035
+#define ANI_ID_0 360100
+#define ANI_ID_1 360200
+#define ANI_ID_2 360300
+#define ANI_ID_3 360400
+#define ANI_ID_4 360500
+#define ANI_ID_5 360600
+#define ANI_ID_6 360700
+#define ANI_ID_7 360800
+#define ANI_ID_8 360900
+#define ANI_ID_9 361000
 
-class CFont {
-	std::map<char, LPSPRITE> fonts;
+#define ANI_ID_SPEED 361100
+#define ANI_ID_FLYABLE 361200
+
+#define ANI_ID_MUSHROOM 361300
+#define ANI_ID_FLOWER 361400
+#define ANI_ID_STAR 361500
+
+#define FONT_BBOX_WIDTH 8
+#define FONT_BBOX_HEIGHT 7
+
+#define ITEM_SIZE 16
+
+class CFont : public CGameObject {
+	int type; // 0->9: numbers, 10: speed, 11: flyable, 12: mushroom, 13: flower, 14: star
+	bool visible;
 
 public:
-	CFont();
-	LPSPRITE mapping(char c);
-	std::vector<LPSPRITE> StringToFont(string str);
+	CFont(float x, float y, int object_type, int type);
+	
+	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
+	void Render();
+
+	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+	int GetType() { return this->type; }
+
+	void SetVisible(bool visible) { this->visible = visible; }
+	void SetType(int type) { this->type = type; }
 };

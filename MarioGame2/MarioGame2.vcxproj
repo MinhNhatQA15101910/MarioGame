@@ -159,6 +159,8 @@
     <ClCompile Include="GreenFirePlant.cpp" />
     <ClCompile Include="GreenMushroomItem.cpp" />
     <ClCompile Include="GreenPlant.cpp" />
+    <ClCompile Include="HUD.cpp" />
+    <ClCompile Include="HudInfo.cpp" />
     <ClCompile Include="LeafItem.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mario.cpp" />
@@ -196,6 +198,8 @@
     <ClInclude Include="GreenFirePlant.h" />
     <ClInclude Include="GreenMushroomItem.h" />
     <ClInclude Include="GreenPlant.h" />
+    <ClInclude Include="HUD.h" />
+    <ClInclude Include="HudInfo.h" />
     <ClInclude Include="KeyEventHandler.h" />
     <ClInclude Include="LeafItem.h" />
     <ClInclude Include="Mario.h" />
